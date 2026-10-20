@@ -1,0 +1,95 @@
+@startuml DCL-R77-0003
+' DCL-R77-0003 - Requerimientos y movimientos de inventario, empresa y documentos (propuesta R7.7, NO validada por el profesor)
+skinparam dpi 120
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam classAttributeIconSize 0
+skinparam linetype polyline
+skinparam nodesep 35
+skinparam ranksep 55
+hide empty members
+title DCL-R77-0003 - Requerimientos de inventario, empresa y documentos
+
+enum EstadoRequerimiento {
+  PENDIENTE
+  APROBADO
+  RECHAZADO
+}
+enum FormatoDocumento {
+  PDF
+  TICKET
+}
+class Almacen {
+  -nombre : String
+  -direccion : String
+}
+class Requerimiento {
+  -codigo : String
+  -fecha : Date
+  -estado : EstadoRequerimiento
+  -comentario : String
+  +asignarOrigen(almacen)
+  +asociarFactura(factura)
+  +aprobar()
+  +rechazar(motivo)
+}
+class LineaRequerimiento {
+  -descripcion : String
+  -cantidad : Decimal
+  -tieneCodigo : boolean
+}
+class MovimientoInventario {
+  -tipo : String
+  -cantidad : Decimal
+  -fecha : Date
+  +registrar(producto, almacen, cantidad)
+}
+class Producto {
+  -codigo : String
+  -nombre : String
+  -precio : Decimal
+  -conIgv : boolean
+}
+class FacturaCompra {
+  -numero : String
+  -total : Decimal
+}
+class Usuario {
+  -nombre : String
+  -rol : String
+}
+class Notificacion {
+  -texto : String
+  +enviar(usuario)
+}
+class Empresa {
+  -nombreComercial : String
+  -razonSocial : String
+  -ruc : String
+  -logo : String
+  -formatoDocumento : FormatoDocumento
+  +guardar()
+}
+class CuentaBancaria {
+  -nombre : String
+  -numero : String
+}
+class DocumentoImpreso {
+  -titulo : String
+  +generar(formato)
+}
+Requerimiento "1" *-- "1..*" LineaRequerimiento
+Requerimiento --> EstadoRequerimiento
+Requerimiento "*" --> "0..1" Almacen : origen
+Requerimiento "*" --> "1" Almacen : destino
+Requerimiento "*" --> "1" Usuario : solicita
+Requerimiento "*" -- "*" FacturaCompra
+LineaRequerimiento "*" --> "0..1" Producto
+Requerimiento ..> MovimientoInventario : produce al aprobar
+MovimientoInventario "*" --> "1" Producto
+MovimientoInventario "*" --> "1" Almacen
+Requerimiento ..> Notificacion : avisa
+Empresa "1" o-- "0..*" CuentaBancaria : sale en los documentos
+Empresa --> FormatoDocumento
+DocumentoImpreso ..> Empresa
+@enduml

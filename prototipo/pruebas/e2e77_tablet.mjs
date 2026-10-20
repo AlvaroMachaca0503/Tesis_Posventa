@@ -1,0 +1,21 @@
+import { chromium } from 'playwright';
+const F='file://'+process.argv[2]+'#sinlogin';
+const b=await chromium.launch(process.env.PW_CHROMIUM?{executablePath:process.env.PW_CHROMIUM}:{});
+const R=[];const ok=(n,c,x='')=>R.push((c?'PASÓ ':'FALLÓ ')+n+(x?' :: '+String(x).slice(0,300):''));
+const ctx=await b.newContext({viewport:{width:1024,height:768},hasTouch:true});const p=await ctx.newPage();p.setDefaultTimeout(4000);const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('dialog',d=>d.accept());
+await p.goto(F);await p.waitForTimeout(300);const ev=(f,a)=>p.evaluate(f,a);
+const cdp=await ctx.newCDPSession(p);
+/* dedo: toca, arrastra en pasos y suelta (equivale a deslizar en la tableta) */
+const drag=async(x,y,dx,dy,steps=12)=>{const pt=(a,c)=>[{x:a,y:c,id:1}];await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:pt(x,y)});for(let i=1;i<=steps;i++){await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:pt(x+dx*i/steps,y+dy*i/steps)});await new Promise(r=>setTimeout(r,16))}await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});await new Promise(r=>setTimeout(r,350))};
+await ev(()=>{actor='u-admin';go('timeline')});await p.waitForTimeout(300);
+await ev(()=>{const e=document.querySelector('.tl-scroll');e.scrollIntoView({block:'start'});e.scrollLeft=2000});
+const sl=()=>ev(()=>document.querySelector('.tl-scroll').scrollLeft),top=await ev(()=>document.querySelector('.tl-scroll').getBoundingClientRect().top);
+const y=Math.min(600,top+200);
+await drag(500,y,-300,0);const a=await sl();ok('Línea temporal: el dedo hacia la izquierda desplaza y se queda ahí',a>2200&&a<2500,'2000 → '+a);
+await drag(500,y,300,0);const c=await sl();ok('Línea temporal: el dedo hacia la derecha regresa',c<a-200,a+' → '+c);
+const y0=await ev(()=>scrollY);await drag(500,y,0,-250);ok('Desliz vertical mueve la página',await ev(()=>scrollY)>y0);
+await ev(()=>{go('clientes')});await p.waitForTimeout(200);
+const tb=await ev(()=>{const h=document.querySelector('#view .r74-tw');return {ovf:h.scrollWidth-h.clientWidth,fits:document.documentElement.scrollWidth<=innerWidth+2}});ok('Tabla en tableta: cabe en pantalla sin desbordar la página',tb.fits,JSON.stringify(tb));
+await p.locator('#view .r77-opt').first().tap();ok('Toque en ⚙ abre el menú de acciones',await p.locator('#r77menu .r77-mi').count()>=1);
+ok('Sin errores JS',errs.length===0,errs.join('|'));
+console.log(R.join('\n'));await b.close();

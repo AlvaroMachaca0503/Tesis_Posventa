@@ -1,0 +1,28 @@
+import { chromium } from 'playwright';
+const F='file://'+process.argv[2]+'#sinlogin';
+const b=await chromium.launch(process.env.PW_CHROMIUM?{executablePath:process.env.PW_CHROMIUM}:{});
+const kill=setTimeout(()=>{console.log('TIMEOUT');process.exit(1)},90000);
+const p=await b.newPage({viewport:{width:1400,height:900}});p.setDefaultTimeout(4000);const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('dialog',d=>d.accept());
+const R=[];const ok=(n,c,x='')=>R.push((c?'PASÓ ':'FALLÓ ')+n+(x?' :: '+x:''));
+await p.goto(F);
+const tl=()=>p.evaluate(()=>{const m=timelineModel(),r=m.plan.rules[0],t=timelineRule(r,m);return {base:t.base?.code,ev:t.events.slice(0,2).map(e=>e.kind+':'+e.km),venc:t.events.filter(e=>e.kind==='vencido').length}});
+ok('seed ODS visibles en pestaña Archivada',await p.evaluate(()=>{odsState='Archivada';go('ods');odsState='Archivada';render();return db.orders.filter(o=>o.state==='Archivada').length})===42);
+ok('un solo Vencido por regla (todas las reglas)',await p.evaluate(()=>{go('timeline');const m=timelineModel();return m.plan.rules.every(r=>timelineRule(r,m).events.filter(e=>e.kind==='vencido').length<=1)}));
+ok('aceite de caja no usa cambios de aceite de motor',await p.evaluate(()=>{const m=timelineModel();return timelineRule(m.plan.rules.find(r=>/caja manual/.test(r.n)),m).evidence.length===0}));
+ok('inspección no acredita sustitución',await p.evaluate(()=>ruleMatches({n:'Cambio de líquido de frenos'},{type:'servicio',name:'Revisión de frenos'})===false&&ruleMatches({n:'Cambio de líquido de frenos'},{type:'servicio',name:'Cambio de líquido de frenos'})===true));
+ok('lectura 25.647 km excluida y señalada',await p.evaluate(()=>timelineModel().hist.some(o=>o.code==='03385'&&o.kmFlag)&&db.orders.find(o=>o.code==='03385').km===25647));
+ok('placa/VIN reales retirados',await p.evaluate(()=>!document.documentElement.outerHTML.includes(('V7X'+'-679'))&&!JSON.stringify(db).includes(('290'+'897'))));
+const before=await tl();
+// crear ODS por la interfaz R7.2
+await p.evaluate(()=>go('ods'));await p.evaluate(()=>newOrder());
+await p.fill('#r72ods [name=km]','303000');await p.click('#r72ods button[type=submit]');await p.waitForTimeout(150);
+await p.evaluate(()=>{const o=db.orders.find(x=>x.km===303000);r72AddLine('o:'+o.id,'servicio');const l=o.lines.at(-1);r72Pick('o:'+o.id,l.id,'cat-S0101');r72Set('o:'+o.id,l.id,'hours','0.75')});
+const o=(await p.evaluate(()=>db.orders.find(x=>x.km===303000)))||{lines:[]};ok('ODS creada con H-H 0.75',o.km===303000&&o.state==='Recepción'&&o.lines[0]?.hours===0.75,JSON.stringify({km:o.km,st:o.state,h:o.lines?.[0]?.hours}));
+const mid=await tl();ok('ODS en Recepción no altera la línea temporal',JSON.stringify(mid)===JSON.stringify(before));
+if(o.id)await p.evaluate(id=>{r7SetApproval(id,'Aprobada');r7SetOrderState(id,'Archivada')},o.id);await p.waitForTimeout(100);
+const after=await tl();ok('ODS archivada reancla solo el futuro del aceite',after.venc===0&&after.ev[0]==='programado:308000',JSON.stringify(after));
+ok('historial anterior intacto',await p.evaluate(()=>db.orders.filter(x=>x.code==='10479')[0].km===285469));
+await p.evaluate(()=>go('timeline'));await p.screenshot({path:'e2e_tl.png'});
+const o2=await p.evaluate(()=>{const id=(db.orders.find(x=>x.km===303000)||{}).id;r7SetApproval(id,'No aprobada');return timelineModel().hist.some(x=>x.id===id)});ok('ODS No aprobada no cuenta como evidencia',!o2);
+ok('reserva de 0.25 H-H a las 08:15 admitida por canBook',await p.evaluate(()=>canBook('u-juan','2026-10-20',495,0.25)));
+console.log(R.join('\n'));console.log('pageerrors',errs.length,errs.slice(0,3));clearTimeout(kill);await b.close();

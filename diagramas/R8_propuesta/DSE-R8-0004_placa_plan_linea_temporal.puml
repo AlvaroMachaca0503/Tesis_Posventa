@@ -1,0 +1,41 @@
+@startuml DSE-R8-0004
+' DSE-R8-0004 - Consulta por placa, asignación de plan y línea temporal (nuevo; RF-04, 13, 14, 15).
+skinparam dpi 130
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign left
+skinparam ParticipantPadding 14
+title DSE-R8-0004 - Placa, historial, plan y línea temporal
+actor Cajera
+actor "Jefe de taller / Experto" as Jefe
+participant ServicioVehiculos
+participant ServicioPlanes
+participant Aplicabilidad
+participant ServicioLineaTemporal
+participant ReglaIntervalo
+participant Asignacion
+
+Cajera -> ServicioVehiculos : 1. buscarPorPlaca(placa)
+ServicioVehiculos --> Cajera : Vehiculo (campos faltantes = pendiente de verificar)
+Cajera -> ServicioVehiculos : 2. consultarHistorial(vehiculoId)
+ServicioVehiculos --> Cajera : OrdenServicio ordenadas por fecha y km
+Cajera -> ServicioPlanes : 3. evaluarAplicabilidad(vehiculoId)
+loop por cada versión de plan candidata
+  ServicioPlanes -> Aplicabilidad : 3.1 coincide(vehiculo)
+end
+alt exactamente una coincidencia suficiente
+  ServicioPlanes --> Cajera : candidato único (sin asignar)
+  Jefe -> ServicioPlanes : 4. asignarPlan(vehiculoId, versionId, usuarioId)
+  ServicioPlanes -> ServicioLineaTemporal : 4.1 construir(vehiculoId, kmActual, fechaCorte)
+  ServicioPlanes -> Asignacion : 4.2 congelarBase(proyecciones)
+else sin coincidencia única
+  ServicioPlanes --> Cajera : plan pendiente de validar; no se asigna por aproximación
+end
+Cajera -> ServicioLineaTemporal : 5. construir(vehiculoId, kmActual, fechaCorte)
+loop por cada regla de la versión asignada
+  ServicioLineaTemporal -> ReglaIntervalo : 5.1 intervaloPara(uso)
+  ServicioLineaTemporal -> ReglaIntervalo : 5.2 calcularSiguiente(ancla, uso)
+end
+ServicioLineaTemporal --> Cajera : LineaTemporal (arriba proyectados; abajo ODS reales)
+Cajera -> ServicioLineaTemporal : 6. compararConBase(asignacionId, kmActual, fechaCorte)
+@enduml

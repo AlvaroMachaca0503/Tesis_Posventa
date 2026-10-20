@@ -1,0 +1,606 @@
+[
+ {
+  "id": "G2-PIC",
+  "nombre": "Kia Picanto 1.0 CVVT",
+  "aplicabilidad": {
+   "marca": "KIA",
+   "modelo": "PICANTO",
+   "motor": "G3LA"
+  },
+  "reglas": [
+   {
+    "id": "G2-PIC/ACEITE_MOTOR",
+    "nombre": "Cambio de aceite de motor",
+    "servicioClave": "ACEITE_MOTOR",
+    "categoria": "Motor y lubricación",
+    "tipo": "PERIODICA",
+    "accionRequerida": "SUSTITUCION",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 5000,
+     "meses": 4
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 5000,
+     "meses": 1
+    }
+   },
+   {
+    "id": "G2-PIC/FILTRO_ACEITE",
+    "nombre": "Cambio de filtro de aceite",
+    "servicioClave": "FILTRO_ACEITE",
+    "categoria": "Motor y lubricación",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SUSTITUCION",
+    "acompana": true,
+    "normal": null,
+    "severo": null
+   },
+   {
+    "id": "G2-PIC/REVISION_GENERAL",
+    "nombre": "Revisión general preventiva",
+    "servicioClave": "REVISION_GENERAL",
+    "categoria": "Revisión general",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "INSPECCION",
+    "acompana": true,
+    "normal": null,
+    "severo": null
+   },
+   {
+    "id": "G2-PIC/CABINA",
+    "nombre": "Servicio de cabina / ventilación",
+    "servicioClave": "CABINA",
+    "categoria": "Cabina y climatización",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 15000,
+     "meses": 12
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 7500,
+     "meses": 6
+    }
+   },
+   {
+    "id": "G2-PIC/COMBUSTIBLE",
+    "nombre": "Servicio del sistema de combustible",
+    "servicioClave": "COMBUSTIBLE",
+    "categoria": "Combustible y emisiones",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 30000,
+     "meses": 24
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 30000,
+     "meses": 24
+    }
+   },
+   {
+    "id": "G2-PIC/FRENOS",
+    "nombre": "Revisión de frenos; cambio por condición",
+    "servicioClave": "FRENOS",
+    "categoria": "Frenos y vacío",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "INSPECCION",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 30000,
+     "meses": 24
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 30000,
+     "meses": 24
+    }
+   },
+   {
+    "id": "G2-PIC/ADMISION_AIRE",
+    "nombre": "Servicio de admisión / filtro de aire",
+    "servicioClave": "ADMISION_AIRE",
+    "categoria": "Admisión y ventilación",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 60000,
+     "meses": 48
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 15000,
+     "meses": 12
+    }
+   },
+   {
+    "id": "G2-PIC/BUJIAS",
+    "nombre": "Bujías / revisión de encendido",
+    "servicioClave": "BUJIAS",
+    "categoria": "Sistema de encendido",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 60000,
+     "meses": 48
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 30000,
+     "meses": 24
+    }
+   },
+   {
+    "id": "G2-PIC/REFRIGERANTE",
+    "nombre": "Refrigerante / sistema de enfriamiento",
+    "servicioClave": "REFRIGERANTE",
+    "categoria": "Refrigeración",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 95000,
+     "meses": 48
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 95000,
+     "meses": 48
+    }
+   },
+   {
+    "id": "G2-PIC/DISTRIBUCION",
+    "nombre": "Sistema de distribución",
+    "servicioClave": "DISTRIBUCION",
+    "categoria": "Distribución",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": 210000,
+     "km": 30000,
+     "meses": 24
+    },
+    "severo": {
+     "kmInicial": 210000,
+     "km": 30000,
+     "meses": 24
+    }
+   },
+   {
+    "id": "G2-PIC/ACEITE_CAJA_MANUAL",
+    "nombre": "Aceite de caja manual",
+    "servicioClave": "ACEITE_CAJA_MANUAL",
+    "categoria": "Transmisión",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SUSTITUCION",
+    "acompana": false,
+    "normal": null,
+    "severo": {
+     "kmInicial": null,
+     "km": 90000,
+     "meses": 72
+    }
+   },
+   {
+    "id": "G2-PIC/ACEITE_CAJA_AUTO",
+    "nombre": "Aceite de caja automática",
+    "servicioClave": "ACEITE_CAJA_AUTO",
+    "categoria": "Transmisión",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SUSTITUCION",
+    "acompana": false,
+    "normal": null,
+    "severo": {
+     "kmInicial": null,
+     "km": 120000,
+     "meses": 96
+    }
+   }
+  ]
+ },
+ {
+  "id": "G2-I10",
+  "nombre": "Hyundai i10 1.1",
+  "aplicabilidad": {
+   "marca": "HYUNDAI",
+   "modelo": "I10",
+   "motor": "G4HG"
+  },
+  "reglas": [
+   {
+    "id": "G2-I10/ACEITE_MOTOR",
+    "nombre": "Cambio de aceite de motor",
+    "servicioClave": "ACEITE_MOTOR",
+    "categoria": "Motor y lubricación",
+    "tipo": "PERIODICA",
+    "accionRequerida": "SUSTITUCION",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 5000,
+     "meses": 4
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 5000,
+     "meses": 1
+    }
+   },
+   {
+    "id": "G2-I10/FILTRO_ACEITE",
+    "nombre": "Cambio de filtro de aceite",
+    "servicioClave": "FILTRO_ACEITE",
+    "categoria": "Motor y lubricación",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SUSTITUCION",
+    "acompana": true,
+    "normal": null,
+    "severo": null
+   },
+   {
+    "id": "G2-I10/REVISION_GENERAL",
+    "nombre": "Inspección general preventiva",
+    "servicioClave": "REVISION_GENERAL",
+    "categoria": "Revisión general",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "INSPECCION",
+    "acompana": true,
+    "normal": null,
+    "severo": null
+   },
+   {
+    "id": "G2-I10/CABINA",
+    "nombre": "Servicio de cabina / ventilación",
+    "servicioClave": "CABINA",
+    "categoria": "Cabina y climatización",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": 15000,
+     "km": 20000,
+     "meses": null
+    },
+    "severo": {
+     "kmInicial": 7500,
+     "km": 10000,
+     "meses": null
+    }
+   },
+   {
+    "id": "G2-I10/ADMISION_AIRE",
+    "nombre": "Servicio de admisión / filtro de aire",
+    "servicioClave": "ADMISION_AIRE",
+    "categoria": "Admisión y ventilación",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": 35000,
+     "km": 40000,
+     "meses": null
+    },
+    "severo": {
+     "kmInicial": 15000,
+     "km": 20000,
+     "meses": null
+    }
+   },
+   {
+    "id": "G2-I10/COMBUSTIBLE",
+    "nombre": "Servicio del sistema de combustible",
+    "servicioClave": "COMBUSTIBLE",
+    "categoria": "Combustible y emisiones",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": 60000,
+     "km": 60000,
+     "meses": null
+    },
+    "severo": {
+     "kmInicial": 55000,
+     "km": 60000,
+     "meses": null
+    }
+   },
+   {
+    "id": "G2-I10/FRENOS",
+    "nombre": "Servicio de frenos",
+    "servicioClave": "FRENOS",
+    "categoria": "Frenos y vacío",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": 35000,
+     "km": 40000,
+     "meses": null
+    },
+    "severo": {
+     "kmInicial": 35000,
+     "km": 40000,
+     "meses": null
+    }
+   },
+   {
+    "id": "G2-I10/BUJIAS",
+    "nombre": "Bujías / revisión de encendido",
+    "servicioClave": "BUJIAS",
+    "categoria": "Sistema de encendido",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": 35000,
+     "km": 40000,
+     "meses": null
+    },
+    "severo": {
+     "kmInicial": 15000,
+     "km": 20000,
+     "meses": null
+    }
+   },
+   {
+    "id": "G2-I10/EMBRAGUE",
+    "nombre": "Servicio de embrague hidráulico",
+    "servicioClave": "EMBRAGUE",
+    "categoria": "Embrague",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": 35000,
+     "km": 40000,
+     "meses": null
+    },
+    "severo": {
+     "kmInicial": 35000,
+     "km": 40000,
+     "meses": null
+    }
+   },
+   {
+    "id": "G2-I10/REFRIGERANTE",
+    "nombre": "Refrigerante / sistema de enfriamiento",
+    "servicioClave": "REFRIGERANTE",
+    "categoria": "Refrigeración",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": 195000,
+     "km": 40000,
+     "meses": null
+    },
+    "severo": {
+     "kmInicial": 195000,
+     "km": 40000,
+     "meses": null
+    }
+   },
+   {
+    "id": "G2-I10/DISTRIBUCION",
+    "nombre": "Sistema de distribución",
+    "servicioClave": "DISTRIBUCION",
+    "categoria": "Distribución",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 135000,
+     "meses": 108
+    },
+    "severo": {
+     "kmInicial": 90000,
+     "km": 30000,
+     "meses": null
+    }
+   }
+  ]
+ },
+ {
+  "id": "G3-P2",
+  "nombre": "Toyota Yaris / Yaris HB 1.3 VVT-i",
+  "aplicabilidad": {
+   "marca": "TOYOTA",
+   "modelo": "YARIS",
+   "motor": "1NR-FE"
+  },
+  "reglas": [
+   {
+    "id": "G3-P2/ACEITE_MOTOR",
+    "nombre": "Cambio de aceite de motor",
+    "servicioClave": "ACEITE_MOTOR",
+    "categoria": "Motor y lubricación",
+    "tipo": "PERIODICA",
+    "accionRequerida": "SUSTITUCION",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 5000,
+     "meses": 4
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 5000,
+     "meses": 1
+    }
+   },
+   {
+    "id": "G3-P2/FILTRO_ACEITE",
+    "nombre": "Cambio de filtro de aceite",
+    "servicioClave": "FILTRO_ACEITE",
+    "categoria": "Motor y lubricación",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SUSTITUCION",
+    "acompana": true,
+    "normal": null,
+    "severo": null
+   },
+   {
+    "id": "G3-P2/REVISION_GENERAL",
+    "nombre": "Revisión general preventiva",
+    "servicioClave": "REVISION_GENERAL",
+    "categoria": "Revisión general",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "INSPECCION",
+    "acompana": true,
+    "normal": null,
+    "severo": null
+   },
+   {
+    "id": "G3-P2/CABINA",
+    "nombre": "Servicio de cabina / ventilación",
+    "servicioClave": "CABINA",
+    "categoria": "Cabina y climatización",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 15000,
+     "meses": 12
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 15000,
+     "meses": 12
+    }
+   },
+   {
+    "id": "G3-P2/LIQUIDO_EMBRAGUE",
+    "nombre": "Cambio de líquido de embrague",
+    "servicioClave": "LIQUIDO_EMBRAGUE",
+    "categoria": "Embrague",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SUSTITUCION",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 30000,
+     "meses": 24
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 30000,
+     "meses": 24
+    }
+   },
+   {
+    "id": "G3-P2/LIQUIDO_FRENOS",
+    "nombre": "Cambio de líquido de frenos",
+    "servicioClave": "LIQUIDO_FRENOS",
+    "categoria": "Frenos y vacío",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SUSTITUCION",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 30000,
+     "meses": 24
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 30000,
+     "meses": 24
+    }
+   },
+   {
+    "id": "G3-P2/ADMISION_AIRE",
+    "nombre": "Servicio de admisión / filtro de aire",
+    "servicioClave": "ADMISION_AIRE",
+    "categoria": "Admisión y ventilación",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 60000,
+     "meses": 48
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 60000,
+     "meses": 48
+    }
+   },
+   {
+    "id": "G3-P2/BUJIAS",
+    "nombre": "Bujías / revisión de encendido",
+    "servicioClave": "BUJIAS",
+    "categoria": "Sistema de encendido",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 45000,
+     "meses": 24
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 45000,
+     "meses": 36
+    }
+   },
+   {
+    "id": "G3-P2/ACEITE_CAJA_MANUAL",
+    "nombre": "Aceite de caja manual",
+    "servicioClave": "ACEITE_CAJA_MANUAL",
+    "categoria": "Transmisión",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SUSTITUCION",
+    "acompana": false,
+    "normal": {
+     "kmInicial": null,
+     "km": 90000,
+     "meses": 72
+    },
+    "severo": {
+     "kmInicial": null,
+     "km": 60000,
+     "meses": 48
+    }
+   },
+   {
+    "id": "G3-P2/REFRIGERANTE",
+    "nombre": "Refrigerante / sistema de enfriamiento",
+    "servicioClave": "REFRIGERANTE",
+    "categoria": "Refrigeración",
+    "tipo": "AUTONOMA",
+    "accionRequerida": "SERVICIO_GENERAL",
+    "acompana": false,
+    "normal": {
+     "kmInicial": 150000,
+     "km": 90000,
+     "meses": 72
+    },
+    "severo": {
+     "kmInicial": 150000,
+     "km": 90000,
+     "meses": 72
+    }
+   }
+  ]
+ }
+]

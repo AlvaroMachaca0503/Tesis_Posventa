@@ -1,0 +1,29 @@
+@startuml DSE-R77-0003
+' DSE-R77-0003 - Egreso a un proveedor y traslado entre cuentas (propuesta R7.7)
+skinparam dpi 130
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign left
+skinparam ParticipantPadding 14
+title DSE-R77-0003 - Egreso a un proveedor y traslado entre cuentas
+actor Finanzas
+participant ServicioMovimiento
+participant ServicioTraslado
+participant CuentaBancaria
+participant MovimientoCuenta
+participant Repositorio
+
+Finanzas -> ServicioMovimiento : 1. registrarEgreso(cuenta, proveedor, monto, concepto)
+ServicioMovimiento -> CuentaBancaria : 1.1 visiblePara(usuario)
+ServicioMovimiento -> MovimientoCuenta : 1.2 registrar(cuenta, monto, concepto)
+ServicioMovimiento -> CuentaBancaria : 1.3 restar(monto)
+ServicioMovimiento -> Repositorio : 1.4 guardar(movimiento)
+ServicioMovimiento --> Finanzas : egreso registrado (sin proveedor se rechaza)
+Finanzas -> ServicioTraslado : 2. trasladar(origen, destino, monto, concepto)
+ServicioTraslado -> CuentaBancaria : 2.1 restar(monto)
+ServicioTraslado -> CuentaBancaria : 2.2 sumar(monto)
+ServicioTraslado -> MovimientoCuenta : 2.3 registrar(origen, monto, concepto)
+ServicioTraslado -> MovimientoCuenta : 2.4 registrar(destino, monto, concepto)
+ServicioTraslado -> Repositorio : 2.5 guardar(movimientos)
+ServicioTraslado --> Finanzas : traslado hecho (no cuenta como ingreso ni egreso)
+@enduml

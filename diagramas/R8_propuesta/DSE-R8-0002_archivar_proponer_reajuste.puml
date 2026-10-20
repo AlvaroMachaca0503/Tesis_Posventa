@@ -1,0 +1,40 @@
+@startuml DSE-R8-0002
+' DSE-R8-0002 - Archivar ODS y proponer reajuste (corrige DSE-0002).
+' CAMBIO: DSE-0002 invocaba reajustarFuturo directamente desde cerrar; aquí el sistema SOLO propone (DIF-009, requiere confirmación).
+skinparam dpi 130
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign left
+skinparam ParticipantPadding 14
+title DSE-R8-0002 - Archivar ODS y proponer reajuste idempotente
+actor Cajera
+participant ServicioODS
+participant ServicioAcceso
+participant Repositorio
+participant MotorPlanes
+participant NormalizadorServicios
+participant ReglaIntervalo
+participant ServicioPosventa
+participant RegistroAuditoria
+
+Cajera -> ServicioODS : 1. archivar(ordenId, politicaSalida, claveEvento)
+ServicioODS -> ServicioAcceso : 1.1 puede(usuarioId, accion, sedeId)
+ServicioAcceso --> ServicioODS : booleano
+ServicioODS -> Repositorio : 1.2 iniciar()
+ServicioODS -> Repositorio : 1.3 guardar(datos)
+ServicioODS -> MotorPlanes : 1.4 proponerReajuste(ordenId, evidenciaId, version)
+loop por cada línea de servicio confirmada
+  MotorPlanes -> NormalizadorServicios : 1.4.1 resolverEquivalencia(descripcion, accion)
+  MotorPlanes -> ReglaIntervalo : 1.4.2 calcularSiguiente(ancla, uso)
+end
+MotorPlanes --> ServicioODS : lista de Reajuste (PENDIENTE o ABSTENIDO)
+ServicioODS -> ServicioPosventa : 1.5 asegurarSeguimiento(ordenId, claveEvento)
+ServicioODS -> RegistroAuditoria : 1.6 registrar(actor, accion, motivo, antes, despues)
+alt todo válido
+  ServicioODS -> Repositorio : 1.7 confirmar()
+else error
+  ServicioODS -> Repositorio : 1.8 revertir()
+end
+ServicioODS --> Cajera : ODS archivada; propuestas pendientes de aprobación
+note over MotorPlanes,ServicioPosventa : Reejecutar con la misma claveEvento no duplica reajustes ni seguimientos.\nNo se modifica ningún servicio histórico.
+@enduml

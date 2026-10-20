@@ -1,0 +1,30 @@
+@startuml DSE-R77-0002
+' DSE-R77-0002 - Encuesta de satisfacción con enlace (propuesta R7.7)
+skinparam dpi 130
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign left
+skinparam ParticipantPadding 14
+title DSE-R77-0002 - Encuesta con enlace
+actor Cajera
+actor Cliente
+participant Encuesta
+participant RespuestaEncuesta
+participant Tarea
+participant MotorReglas
+participant Repositorio
+
+Cajera -> Encuesta : 1. generarEnlace(orden)
+Encuesta -> Repositorio : 1.1 guardar(encuesta)
+Encuesta --> Cajera : texto con el enlace para WhatsApp o SMS
+Cliente -> Encuesta : 2. mostrar(token)
+Encuesta -> Repositorio : 2.1 buscar(token)
+Encuesta --> Cliente : página de una pantalla con las 7 preguntas
+Cliente -> Encuesta : 3. registrarRespuesta(token, respuestas)
+Encuesta -> RespuestaEncuesta : 3.1 calcularNps()
+Encuesta -> Repositorio : 3.2 guardar(respuesta)
+Encuesta -> Tarea : 3.3 completar()
+Encuesta -> MotorReglas : 3.4 procesarEventos()
+Encuesta --> Cliente : agradecimiento
+note over Encuesta,Repositorio : En el prototipo el enlace es #encuesta=<ODS> y se guarda en el navegador.\nEn el sistema real el token es firmado, de un solo uso y caduca.
+@enduml

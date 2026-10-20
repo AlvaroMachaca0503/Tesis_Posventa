@@ -1,0 +1,23 @@
+@startuml DES-R8-0003
+' DES-R8-0003 - Estados de Seguimiento de posventa. Reescribe DES-0002 (R7) con nombres de EstadoSeguimiento
+' y con disparadores = métodos de ServicioPosventa / ServicioCitas (DCL-R8-0001C). Semántica de DES-0002 preservada.
+skinparam dpi 130
+skinparam shadowing false
+skinparam defaultFontName Arial
+title DES-R8-0003 - Ciclo de vida de Seguimiento
+[*] --> Pendiente : asegurarSeguimiento(ordenId, claveEvento)
+Pendiente --> IntentoRegistrado : registrarIntento(seguimientoId, canal)
+IntentoRegistrado --> ContactoDeclarado : registrarResultado(seguimientoId, resultado)\n[el cliente respondió]
+IntentoRegistrado --> CompletadoSinCita : registrarResultado(...)\n[segundo intento sin respuesta]
+IntentoRegistrado --> CompletadoConSubtarea : registrarResultado(...)\n[se acuerda nuevo intento]
+ContactoDeclarado --> CompletadoConCita : programarCita(seguimientoId, lineas, bloques)
+ContactoDeclarado --> CompletadoSinCita : registrarResultado(...)\n[no requiere cita]
+ContactoDeclarado --> CompletadoConSubtarea : registrarResultado(...)\n[nueva llamada acordada]
+CompletadoConCita --> [*]
+CompletadoSinCita --> [*]
+CompletadoConSubtarea --> [*]
+note right of IntentoRegistrado
+  generarEnlaceWhatsApp solo prepara el mensaje.
+  Un clic NO acredita envío ni respuesta.
+end note
+@enduml

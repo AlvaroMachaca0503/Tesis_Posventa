@@ -1,0 +1,19 @@
+@startuml DES-R8-0002
+' DES-R8-0002 - Estados de Reajuste (nuevo). Disparadores = métodos de MotorPlanes (DCL-R8-0001B).
+skinparam dpi 130
+skinparam shadowing false
+skinparam defaultFontName Arial
+title DES-R8-0002 - Ciclo de vida de Reajuste
+[*] --> Pendiente : proponerReajuste(...)\n[evidencia válida: ODS archivada, línea confirmada,\nequivalencia suficiente, km y fecha válidos]
+[*] --> Abstenido : proponerReajuste(...)\n[falta km/fecha o equivalencia dudosa]
+Pendiente --> Aprobado : aprobarReajuste(reajusteId, usuarioId, motivo)\n[rol JEFE_TALLER o EXPERTO] / reajustarFuturo(...)
+Pendiente --> Rechazado : rechazarReajuste(reajusteId, usuarioId, motivo)
+Abstenido --> [*] : requiere revisión humana
+Aprobado --> [*]
+Rechazado --> [*]
+note right of Aprobado
+  Solo se modifica el futuro de la regla afectada.
+  El pasado y las demás reglas no cambian.
+  Repetir la misma claveEvento no duplica el reajuste.
+end note
+@enduml

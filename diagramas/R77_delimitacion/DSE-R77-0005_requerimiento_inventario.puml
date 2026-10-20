@@ -1,0 +1,25 @@
+@startuml DSE-R77-0005
+' DSE-R77-0005 - Requerimiento de inventario y movimiento de stock (propuesta R7.7)
+skinparam dpi 130
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign left
+skinparam ParticipantPadding 14
+title DSE-R77-0005 - Del requerimiento al movimiento de inventario
+actor Logistico
+participant Requerimiento
+participant MovimientoInventario
+participant Notificacion
+participant DocumentoImpreso
+participant Repositorio
+
+Logistico -> Requerimiento : 1. asociarFactura(factura)
+Requerimiento -> Repositorio : 1.1 guardar(requerimiento)
+Logistico -> Requerimiento : 2. asignarOrigen(almacen)
+Logistico -> Requerimiento : 3. aprobar()
+Requerimiento -> MovimientoInventario : 3.1 registrar(producto, almacen, cantidad)
+Requerimiento -> Repositorio : 3.2 guardar(requerimiento)
+Requerimiento -> Notificacion : 3.3 enviar(usuario)
+Logistico -> DocumentoImpreso : 4. generar(formato)
+note over Requerimiento,MovimientoInventario : Solo mueve stock lo que tiene código de producto; lo demás se registra como entrega.\nSin origen asignado no se aprueba un requerimiento con productos con código.
+@enduml

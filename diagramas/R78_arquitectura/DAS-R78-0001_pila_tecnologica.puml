@@ -1,0 +1,32 @@
+@startuml
+skinparam backgroundColor white
+skinparam componentStyle rectangle
+skinparam shadowing false
+left to right direction
+actor "Usuario autorizado" as U
+package "Navegador" {
+  [React + TypeScript\nVite] as Web
+}
+package "Monolito modular Node.js LTS" {
+  [NestJS API REST\nOpenAPI] as Api
+  [Dominio compartido\nODS, agenda, planes] as Domain
+  [Worker\nnotificaciones/importación] as Worker
+}
+database "PostgreSQL\ntransacciones, auditoría" as DB
+folder "Evidencias\nadaptador local/S3" as Files
+cloud "ERP / XLSX\nadaptador de importación" as Ext
+cloud "GitHub Actions\nCI" as CI
+U --> Web
+Web --> Api : HTTPS
+Api --> Domain
+Api --> DB
+Worker --> DB
+Worker --> Files
+Api --> Files
+Ext --> Api : importación validada
+CI --> Api : pruebas y compilación
+note bottom of Domain
+Propuesta R7.8: pendiente de ADR-001.
+No implica implementación ni reemplazo del ERP.
+end note
+@enduml

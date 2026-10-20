@@ -1,0 +1,39 @@
+@startuml DSE-R8-0001
+' DSE-R8-0001 - Importación (corrige DSE-0001: numera TODAS las llamadas y agrega las que faltaban)
+skinparam dpi 130
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign left
+skinparam ParticipantPadding 14
+title DSE-R8-0001 - Importación atómica e idempotente
+actor Cajera
+participant Importador
+participant ValidadorLote
+participant ResolvedorIdentidad
+participant AplicadorLote
+participant NormalizadorServicios
+participant Repositorio
+
+Cajera -> Importador : 1. cargar(archivo, perfil, modo)
+Importador -> Importador : 1.1 reconocerPerfil(encabezados)
+Importador -> ValidadorLote : 1.2 validarTodo(archivo, perfil)
+ValidadorLote --> Importador : ResultadoValidacion
+loop por cada identidad de cliente, vehículo y ODS
+  Importador -> ResolvedorIdentidad : 1.3 resolver(origen, idExterno, tipo)
+  ResolvedorIdentidad --> Importador : IdentidadExterna (existente o nueva)
+end
+alt lote válido
+  Importador -> AplicadorLote : 1.4 aplicarAtomico(lote, modo)
+  AplicadorLote -> Repositorio : 1.4.1 iniciar()
+  AplicadorLote -> NormalizadorServicios : 1.4.2 resolverEquivalencia(descripcion, accion)
+  NormalizadorServicios --> AplicadorLote : EquivalenciaServicio (o sin equivalencia)
+  AplicadorLote -> Repositorio : 1.4.3 guardar(datos)
+  AplicadorLote -> Repositorio : 1.4.4 confirmar()
+  AplicadorLote --> Importador : ResumenLote
+else errores o correspondencias ambiguas
+  AplicadorLote -> Repositorio : 1.5 revertir()
+  Importador --> Cajera : errores por fila; cero cambios de negocio
+end
+Importador --> Cajera : resumen de cantidades y estado
+note over Importador,AplicadorLote : Reimportar el mismo lote no duplica entidades (origen + idExterno).\nNo se borra por omisión.
+@enduml

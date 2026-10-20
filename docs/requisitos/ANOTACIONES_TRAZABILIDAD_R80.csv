@@ -1,0 +1,81 @@
+ID,Tipo,Descripción
+A-01,Arquitectura,"Identidad, maestros y configuración: interfaz React/TypeScript, API modular NestJS y PostgreSQL propuestos; DAS-0001 y DAF-R78-0001."
+A-02,Arquitectura,ODS y evidencia: módulo canónico de orden y control de acceso; DAS-0001.
+A-03,Arquitectura,"Importación: adaptador Excel/CSV, validador, aplicador transaccional e identidad externa; DAS-0001."
+A-04,Arquitectura,"Mantenimiento: planes versionados, proyecciones y recomendación revisable; DAS-0001."
+A-05,Arquitectura,"Ejecución: tareas, bloques y agenda técnica; DCM-R77-0001."
+A-06,Arquitectura,"Bitácora y auditoría: eventos, comentarios, menciones y evidencias; DAS-0001."
+A-07,Arquitectura,Reportes operativos derivados del modelo canónico; DAF-R78-0001.
+A-08,Arquitectura,"Logística reducida: una tarea de productos enlazada a ODS; no incluye inventario, caja ni compras financieras."
+C-01,Componente,Identidad y permisos.
+C-02,Componente,"Maestros de clientes, vehículos, proveedores y catálogo."
+C-03,Componente,"ODS, detalle, estados y evidencia."
+C-04,Componente,"Importador, validador y conciliación."
+C-05,Componente,"Planes, reglas, proyecciones y recomendaciones."
+C-06,Componente,Tareas y bloques de tiempo.
+C-07,Componente,"Citas, agenda y capacidad."
+C-08,Componente,"Bitácora, evidencias, menciones y auditoría."
+C-09,Componente,Reportes operativos.
+C-10,Componente,"Organización, locales y parámetros."
+C-11,Componente,"Solicitud, cotización, compra, entrega y conformidad de producto."
+CU-01,Caso de uso,Autenticar y administrar acceso.
+CU-02,Caso de uso,Gestionar maestros y catálogo.
+CU-03,Caso de uso,Gestionar ODS.
+CU-04,Caso de uso,Importar y conciliar datos.
+CU-05,Caso de uso,Gestionar mantenimiento preventivo.
+CU-06,Caso de uso,Gestionar tarea técnica.
+CU-07,Caso de uso,Gestionar cita y agenda.
+CU-08,Caso de uso,Registrar y consultar bitácora.
+CU-09,Caso de uso,Consultar reporte operativo.
+CU-10,Caso de uso,Configurar operación.
+CU-11,Caso de uso,Gestionar tarea logística de productos.
+D-01,Datos,"usuarios, roles, permisos, organizaciones, locales, parámetros."
+D-02,Datos,"clientes, vehículos, proveedores, kilometrajes, catálogo."
+D-03,Datos,"ODS, detalles, servicios, evidencias y garantías."
+D-04,Datos,"lotes, filas de importación, identidades externas y resultados."
+D-05,Datos,"planes, versiones, reglas, aplicabilidades, asignaciones, proyecciones y recomendaciones."
+D-06,Datos,"tareas, bloques, citas, agenda, jornada y asignaciones."
+D-07,Datos,"bitácoras, menciones, evidencias y auditorías."
+D-08,Datos,"vistas o consultas derivadas de ODS, tareas y planes."
+D-09,Datos,"solicitudes, cotizaciones, alternativas, compras, entregas y conformidades."
+F-01,Archivo,Configuración de autenticación y permisos.
+F-02,Archivo,Pantallas y formularios de maestros.
+F-03,Archivo,Vista técnica y comercial de ODS.
+F-04,Archivo,Plantillas Excel/CSV y bitácora de lote.
+F-05,Archivo,Reglas versionadas y evidencia de plan.
+F-06,Archivo,Vista de tareas y agenda.
+F-07,Archivo,Adjuntos de bitácora y evidencia.
+F-08,Archivo,Exportaciones CSV/PDF de reporte.
+F-09,Archivo,Parámetros de organización y agenda.
+F-10,Archivo,Comprobante de compra y evidencias de compra/entrega.
+FE-01,Frontend,Pantalla de acceso y gestión de usuarios.
+FE-02,Frontend,"Clientes, vehículos, proveedores y catálogo."
+FE-03,Frontend,"Formulario, detalle, estados y vista técnica de ODS."
+FE-04,Frontend,Asistente de carga y previsualización.
+FE-05,Frontend,"Planes, línea de tiempo y recomendación."
+FE-06,Frontend,"Tareas, bloques, pausas y jornada."
+FE-07,Frontend,Agenda técnica y citas.
+FE-08,Frontend,"Bitácora, menciones y evidencias."
+FE-09,Frontend,Filtros y exportación de reportes.
+FE-10,Frontend,"Parámetros, locales y políticas."
+FE-11,Frontend,Tarea logística y conformidad técnica.
+E-01,Estados,"ODS: recepción, en proceso, en entrega y cerrada."
+E-02,Estados,"Lote: borrador, validado, aplicado o rechazado."
+E-03,Estados,"Plan/recomendación: vigente, propuesta, aceptada, postergada o rechazada."
+E-04,Estados,"Tarea: pendiente, en proceso y completada; jornada bloqueada o abierta."
+E-05,Estados,"Producto: solicitado, cotizado, pendiente de aprobación, por comprar, entregado, observado o conforme."
+S-01,Secuencia,Crear/editar/cerrar ODS y registrar auditoría.
+S-02,Secuencia,"Cargar, validar, aplicar o revertir lote."
+S-03,Secuencia,"Evento real, reajuste futuro y decisión humana."
+S-04,Secuencia,"Asignar, iniciar, dividir, continuar y completar tarea."
+S-05,Secuencia,"Cita, llegada, ODS y reserva de capacidad."
+S-06,Secuencia,"Evento o comentario, evidencia, mención y notificación."
+S-07,Secuencia,"Solicitud, cotización, aprobación, compra, entrega y conformidad."
+AC-01,Actividad,Gestionar ciclo de ODS.
+AC-02,Actividad,Importar y conciliar lote.
+AC-03,Actividad,Actualizar plan preventivo.
+AC-04,Actividad,Gestionar jornada técnica.
+AC-05,Actividad,Programar atención.
+AC-06,Actividad,Registrar bitácora.
+AC-07,Actividad,Gestionar producto solicitado.
+DP-01,Despliegue,"Navegador web, API modular, base PostgreSQL, almacenamiento de evidencia y servicios de respaldo; DAF-R78-0001."

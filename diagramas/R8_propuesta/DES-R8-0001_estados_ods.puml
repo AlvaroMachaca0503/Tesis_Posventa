@@ -1,0 +1,41 @@
+@startuml DES-R8-0001
+' DES-R8-0001 - Estados de la ODS (corrige DES-0001 de R7, que usaba Cerrado/PorEntregar)
+' Fuente de verdad: DECISIONES_R7 #1-#6, #23. Los disparadores son métodos de ServicioODS (DCL-R8-0001A).
+skinparam dpi 130
+skinparam shadowing false
+skinparam defaultFontName Arial
+title DES-R8-0001 - Ciclo de vida de OrdenServicio (EstadoODS y DecisionCliente)
+
+state OrdenServicio {
+  state "EstadoODS" as EstadoODS {
+    state Recepcion
+    state EnProceso
+    state Entrega
+    state Archivada
+    [*] --> Recepcion : crearDesdeCita / importación válida
+    Recepcion --> EnProceso : avanzarEstado(EN_PROCESO)\n[existe trabajo activo o coordinación]
+    EnProceso --> Entrega : avanzarEstado(ENTREGA)\n[servicios resueltos y, si hay productos,\nconformidad técnica registrada]
+    Entrega --> Archivada : archivar(ordenId, politicaSalida, claveEvento)
+    Recepcion --> Archivada : archivar(...)\n[decisionCliente = NO_APROBADA]
+    EnProceso --> Archivada : archivar(...)\n[decisionCliente = NO_APROBADA]
+    Archivada --> EnProceso : reabrir(ordenId, motivo)\n[administrador autoriza; auditar]
+    Archivada --> Archivada : corregirArchivada(ordenId, cambios, motivo)\n[tarea administrativa autorizada; NO reactiva]
+  }
+  --
+  state "DecisionCliente" as DecisionCliente {
+    state Pendiente
+    state Aprobada
+    state NoAprobada
+    [*] --> Pendiente
+    Pendiente --> Aprobada : registrarDecision(APROBADA)
+    Pendiente --> NoAprobada : registrarDecision(NO_APROBADA)
+    Aprobada --> Pendiente : agregarLinea(ítem NUEVO)
+    Aprobada --> Aprobada : editar ítem existente\n(no cambia la decisión)
+  }
+}
+note right of Archivada
+  Archivada es estado técnico, independiente de
+  nota emitida o saldo cobrado. Reapertura y
+  corrección de archivada se auditan (RF-28, RF-29).
+end note
+@enduml

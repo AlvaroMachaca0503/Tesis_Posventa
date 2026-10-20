@@ -1,0 +1,21 @@
+# Basura de la carpeta sincronizada con Drive
+desktop.ini
+**/desktop.ini
+Thumbs.db
+.DS_Store
+
+# Dependencias, compilados y datos
+node_modules/
+__pycache__/
+*.pyc
+build/
+dist/
+*.sqlite
+*.sqlite3
+*.db
+.env
+*.pem
+
+# Datos reales o secretos: nunca
+datos_reales/
+secretos/

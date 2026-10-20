@@ -1,0 +1,43 @@
+@startuml DCU-R77-0001
+' DCU-R77-0001 - Casos de uso de la primera versión por actor (propuesta R7.7; los diagramas de casos de uso no tienen verificador)
+left to right direction
+skinparam dpi 120
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam packageStyle rectangle
+title DCU-R77-0001 - Casos de uso de la primera versión
+actor Administrador as ADM
+actor "Finanzas" as FIN
+actor Cajera as CAJ
+actor "Jefe de taller" as JEF
+actor "Técnico" as TEC
+actor Cliente as CLI
+rectangle "Sistema de posventa R Motriz (primera versión)" {
+  usecase "Cargar órdenes de servicio\n(Excel o CSV)" as U1
+  usecase "Configurar sistema, módulos beta,\nestados de tarea y APIs" as U2
+  usecase "Administrar usuarios\ny series por sede" as U3
+  usecase "Registrar ingresos, egresos y traslados\nen todas las cuentas" as U4
+  usecase "Pagar facturas de compra" as U5
+  usecase "Registrar ingresos y egresos\nde las cuentas de su sede" as U6
+  usecase "Emitir cotización y nota de venta\ncon la serie de su sede" as U7
+  usecase "Cobrar cuentas por cobrar" as U8
+  usecase "Enviar la encuesta con enlace" as U9
+  usecase "Gestionar tareas y automatizaciones\nde posventa" as U10
+  usecase "Consultar reportes y métricas\npor sede" as U11
+  usecase "Registrar el trabajo\nde sus servicios" as U12
+  usecase "Responder la encuesta\npor el enlace" as U13
+}
+ADM --> U1
+ADM --> U2
+ADM --> U3
+FIN --> U4
+FIN --> U5
+CAJ --> U6
+CAJ --> U7
+CAJ --> U8
+CAJ --> U9
+JEF --> U10
+JEF --> U11
+TEC --> U12
+CLI --> U13
+@enduml

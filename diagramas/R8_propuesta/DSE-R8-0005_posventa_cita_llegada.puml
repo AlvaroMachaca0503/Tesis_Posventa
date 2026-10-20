@@ -1,0 +1,31 @@
+@startuml DSE-R8-0005
+' DSE-R8-0005 - Seguimiento, cita y llegada a ODS (corrige DSE-0003 y lo extiende hacia atrás con el contacto).
+skinparam dpi 130
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign left
+skinparam ParticipantPadding 14
+title DSE-R8-0005 - Posventa: contacto, cita y llegada convertida en ODS
+actor Cajera
+participant ServicioPosventa
+participant ServicioCitas
+participant Planificador
+participant ServicioAvisos
+participant ServicioODS
+
+Cajera -> ServicioPosventa : 1. generarEnlaceWhatsApp(seguimientoId)
+Cajera -> ServicioPosventa : 2. registrarIntento(seguimientoId, canal)
+Cajera -> ServicioPosventa : 3. registrarResultado(seguimientoId, resultado)
+Cajera -> ServicioCitas : 4. programarCita(seguimientoId, lineas, bloques)
+ServicioCitas -> Planificador : 4.1 validarCapacidad(tecnicoId, bloques)
+ServicioCitas -> ServicioAvisos : 4.2 crearReconfirmacion(citaId)
+ServicioCitas --> Cajera : Cita RESERVADA
+... día de la cita ...
+Cajera -> ServicioCitas : 5. convertirLlegada(citaId, clave)
+ServicioCitas -> Planificador : 5.1 validarCapacidad(tecnicoId, bloques)
+ServicioCitas -> ServicioODS : 5.2 crearDesdeCita(citaId, clave)
+ServicioODS --> ServicioCitas : ordenId existente o nueva en RECEPCION
+ServicioCitas -> Planificador : 5.3 enlazarBloques(citaId, ordenId)
+ServicioCitas --> Cajera : abrir ODS sin reescribir datos
+note over ServicioCitas,ServicioODS : Conversión atómica; una ODS por cita. No se crean reservas adicionales.
+@enduml

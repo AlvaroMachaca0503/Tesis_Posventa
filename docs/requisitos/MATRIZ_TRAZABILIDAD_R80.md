@@ -1,0 +1,102 @@
+# Matriz de trazabilidad R8.0
+
+La definición de cada RF está en `REQUISITOS_FUNCIONALES_FINALES_R80.csv`. Celdas vacías indican artefacto no aplicable o aún no definido. Las claves se resuelven en `ANOTACIONES_TRAZABILIDAD_R80.csv`.
+
+| RF | Arquitectura | Componente | Caso de uso | Clases | Base de datos | Archivo | Código frontend | Código backend | Estados | Secuencia | Actividades | Despliegue |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| RF-001 | A-01 | C-01 | CU-01 | Usuario, Rol, Permiso | D-01 | F-01 | FE-01 |  |  |  |  | DP-01 |
+| RF-002 | A-01 | C-01 | CU-01 | Usuario, Rol, Permiso | D-01 | F-01 | FE-01 |  |  |  |  | DP-01 |
+| RF-003 | A-01 | C-01 | CU-01 | Usuario, Rol, Permiso | D-01 | F-01 | FE-01 |  |  |  |  | DP-01 |
+| RF-004 | A-01 | C-02 | CU-02 | Cliente, Vehiculo, Proveedor, Kilometraje, Catalogo | D-02 | F-02 | FE-02 |  |  |  |  | DP-01 |
+| RF-005 | A-01 | C-02 | CU-02 | Cliente, Vehiculo, Proveedor, Kilometraje, Catalogo | D-02 | F-02 | FE-02 |  |  |  |  | DP-01 |
+| RF-006 | A-01 | C-02 | CU-02 | Cliente, Vehiculo, Proveedor, Kilometraje, Catalogo | D-02 | F-02 | FE-02 |  |  |  |  | DP-01 |
+| RF-007 | A-01 | C-02 | CU-02 | Cliente, Vehiculo, Proveedor, Kilometraje, Catalogo | D-02 | F-02 | FE-02 |  |  |  |  | DP-01 |
+| RF-008 | A-01 | C-02 | CU-02 | Cliente, Vehiculo, Proveedor, Kilometraje, Catalogo | D-02 | F-02 | FE-02 |  |  |  |  | DP-01 |
+| RF-009 | A-01 | C-02 | CU-02 | Cliente, Vehiculo, Proveedor, Kilometraje, Catalogo | D-02 | F-02 | FE-02 |  |  |  |  | DP-01 |
+| RF-010 | A-01 | C-02 | CU-02 | Cliente, Vehiculo, Proveedor, Kilometraje, Catalogo | D-02 | F-02 | FE-02 |  |  |  |  | DP-01 |
+| RF-011 | A-02 | C-03 | CU-03 | OrdenServicio, DetalleODS, ServicioODS, Evidencia | D-03 | F-03 | FE-03 |  | E-01 | S-01 | AC-01 | DP-01 |
+| RF-012 | A-02 | C-03 | CU-03 | OrdenServicio, DetalleODS, ServicioODS, Evidencia | D-03 | F-03 | FE-03 |  | E-01 | S-01 | AC-01 | DP-01 |
+| RF-013 | A-02 | C-03 | CU-03 | OrdenServicio, DetalleODS, ServicioODS, Evidencia | D-03 | F-03 | FE-03 |  | E-01 | S-01 | AC-01 | DP-01 |
+| RF-014 | A-02 | C-03 | CU-03 | OrdenServicio, DetalleODS, ServicioODS, Evidencia | D-03 | F-03 | FE-03 |  | E-01 | S-01 | AC-01 | DP-01 |
+| RF-015 | A-02 | C-03 | CU-03 | OrdenServicio, DetalleODS, ServicioODS, Evidencia | D-03 | F-03 | FE-03 |  | E-01 | S-01 | AC-01 | DP-01 |
+| RF-016 | A-02 | C-03 | CU-03 | OrdenServicio, DetalleODS, ServicioODS, Evidencia | D-03 | F-03 | FE-03 |  | E-01 | S-01 | AC-01 | DP-01 |
+| RF-017 | A-02 | C-03 | CU-03 | OrdenServicio, DetalleODS, ServicioODS, Evidencia | D-03 | F-03 | FE-03 |  | E-01 | S-01 | AC-01 | DP-01 |
+| RF-018 | A-02 | C-03 | CU-03 | OrdenServicio, DetalleODS, ServicioODS, Evidencia | D-03 | F-03 | FE-03 |  | E-01 | S-01 | AC-01 | DP-01 |
+| RF-019 | A-03 | C-04 | CU-04 | Lote, FilaImportacion, IdentidadExterna, ValidadorLote | D-04 | F-04 | FE-04 |  | E-02 | S-02 | AC-02 | DP-01 |
+| RF-020 | A-03 | C-04 | CU-04 | Lote, FilaImportacion, IdentidadExterna, ValidadorLote | D-04 | F-04 | FE-04 |  | E-02 | S-02 | AC-02 | DP-01 |
+| RF-021 | A-03 | C-04 | CU-04 | Lote, FilaImportacion, IdentidadExterna, ValidadorLote | D-04 | F-04 | FE-04 |  | E-02 | S-02 | AC-02 | DP-01 |
+| RF-022 | A-03 | C-04 | CU-04 | Lote, FilaImportacion, IdentidadExterna, ValidadorLote | D-04 | F-04 | FE-04 |  | E-02 | S-02 | AC-02 | DP-01 |
+| RF-023 | A-03 | C-04 | CU-04 | Lote, FilaImportacion, IdentidadExterna, ValidadorLote | D-04 | F-04 | FE-04 |  | E-02 | S-02 | AC-02 | DP-01 |
+| RF-024 | A-03 | C-04 | CU-04 | Lote, FilaImportacion, IdentidadExterna, ValidadorLote | D-04 | F-04 | FE-04 |  | E-02 | S-02 | AC-02 | DP-01 |
+| RF-025 | A-03 | C-04 | CU-04 | Lote, FilaImportacion, IdentidadExterna, ValidadorLote | D-04 | F-04 | FE-04 |  | E-02 | S-02 | AC-02 | DP-01 |
+| RF-026 | A-04 | C-05 | CU-05 | Plan, VersionPlan, Regla, Aplicabilidad, Asignacion, Proyeccion | D-05 | F-05 | FE-05 |  | E-03 | S-03 | AC-03 | DP-01 |
+| RF-027 | A-04 | C-05 | CU-05 | Plan, VersionPlan, Regla, Aplicabilidad, Asignacion, Proyeccion | D-05 | F-05 | FE-05 |  | E-03 | S-03 | AC-03 | DP-01 |
+| RF-028 | A-04 | C-05 | CU-05 | Plan, VersionPlan, Regla, Aplicabilidad, Asignacion, Proyeccion | D-05 | F-05 | FE-05 |  | E-03 | S-03 | AC-03 | DP-01 |
+| RF-029 | A-04 | C-05 | CU-05 | Plan, VersionPlan, Regla, Aplicabilidad, Asignacion, Proyeccion | D-05 | F-05 | FE-05 |  | E-03 | S-03 | AC-03 | DP-01 |
+| RF-030 | A-04 | C-05 | CU-05 | Plan, VersionPlan, Regla, Aplicabilidad, Asignacion, Proyeccion | D-05 | F-05 | FE-05 |  | E-03 | S-03 | AC-03 | DP-01 |
+| RF-031 | A-04 | C-05 | CU-05 | Plan, VersionPlan, Regla, Aplicabilidad, Asignacion, Proyeccion | D-05 | F-05 | FE-05 |  | E-03 | S-03 | AC-03 | DP-01 |
+| RF-032 | A-04 | C-05 | CU-05 | Plan, VersionPlan, Regla, Aplicabilidad, Asignacion, Proyeccion | D-05 | F-05 | FE-05 |  | E-03 | S-03 | AC-03 | DP-01 |
+| RF-033 | A-04 | C-05 | CU-05 | Plan, VersionPlan, Regla, Aplicabilidad, Asignacion, Proyeccion | D-05 | F-05 | FE-05 |  | E-03 | S-03 | AC-03 | DP-01 |
+| RF-034 | A-04 | C-05 | CU-05 | Plan, VersionPlan, Regla, Aplicabilidad, Asignacion, Proyeccion | D-05 | F-05 | FE-05 |  | E-03 | S-03 | AC-03 | DP-01 |
+| RF-035 | A-04 | C-05 | CU-05 | Plan, VersionPlan, Regla, Aplicabilidad, Asignacion, Proyeccion | D-05 | F-05 | FE-05 |  | E-03 | S-03 | AC-03 | DP-01 |
+| RF-036 | A-04 | C-05 | CU-05 | Plan, VersionPlan, Regla, Aplicabilidad, Asignacion, Proyeccion | D-05 | F-05 | FE-05 |  | E-03 | S-03 | AC-03 | DP-01 |
+| RF-037 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-038 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-039 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-040 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-041 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-042 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-043 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-044 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-045 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-046 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-047 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-048 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-049 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-050 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-051 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-052 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-053 | A-05 | C-07 | CU-07 | Cita, AgendaTecnico, BloqueTiempo, OrdenServicio | D-06 | F-06 | FE-07 |  | E-04 | S-05 | AC-05 | DP-01 |
+| RF-054 | A-05 | C-07 | CU-07 | Cita, AgendaTecnico, BloqueTiempo, OrdenServicio | D-06 | F-06 | FE-07 |  | E-04 | S-05 | AC-05 | DP-01 |
+| RF-055 | A-05 | C-07 | CU-07 | Cita, AgendaTecnico, BloqueTiempo, OrdenServicio | D-06 | F-06 | FE-07 |  | E-04 | S-05 | AC-05 | DP-01 |
+| RF-056 | A-05 | C-07 | CU-07 | Cita, AgendaTecnico, BloqueTiempo, OrdenServicio | D-06 | F-06 | FE-07 |  | E-04 | S-05 | AC-05 | DP-01 |
+| RF-057 | A-05 | C-07 | CU-07 | Cita, AgendaTecnico, BloqueTiempo, OrdenServicio | D-06 | F-06 | FE-07 |  | E-04 | S-05 | AC-05 | DP-01 |
+| RF-058 | A-05 | C-07 | CU-07 | Cita, AgendaTecnico, BloqueTiempo, OrdenServicio | D-06 | F-06 | FE-07 |  | E-04 | S-05 | AC-05 | DP-01 |
+| RF-059 | A-06 | C-08 | CU-08 | Bitacora, Evidencia, Mencion, Auditoria | D-07 | F-07 | FE-08 |  |  | S-06 | AC-06 | DP-01 |
+| RF-060 | A-06 | C-08 | CU-08 | Bitacora, Evidencia, Mencion, Auditoria | D-07 | F-07 | FE-08 |  |  | S-06 | AC-06 | DP-01 |
+| RF-061 | A-06 | C-08 | CU-08 | Bitacora, Evidencia, Mencion, Auditoria | D-07 | F-07 | FE-08 |  |  | S-06 | AC-06 | DP-01 |
+| RF-062 | A-06 | C-08 | CU-08 | Bitacora, Evidencia, Mencion, Auditoria | D-07 | F-07 | FE-08 |  |  | S-06 | AC-06 | DP-01 |
+| RF-063 | A-06 | C-08 | CU-08 | Bitacora, Evidencia, Mencion, Auditoria | D-07 | F-07 | FE-08 |  |  | S-06 | AC-06 | DP-01 |
+| RF-064 | A-06 | C-08 | CU-08 | Bitacora, Evidencia, Mencion, Auditoria | D-07 | F-07 | FE-08 |  |  | S-06 | AC-06 | DP-01 |
+| RF-065 | A-07 | C-09 | CU-09 | ReporteOperativo, Indicador, Filtro | D-08 | F-08 | FE-09 |  |  |  |  | DP-01 |
+| RF-066 | A-07 | C-09 | CU-09 | ReporteOperativo, Indicador, Filtro | D-08 | F-08 | FE-09 |  |  |  |  | DP-01 |
+| RF-067 | A-07 | C-09 | CU-09 | ReporteOperativo, Indicador, Filtro | D-08 | F-08 | FE-09 |  |  |  |  | DP-01 |
+| RF-068 | A-07 | C-09 | CU-09 | ReporteOperativo, Indicador, Filtro | D-08 | F-08 | FE-09 |  |  |  |  | DP-01 |
+| RF-069 | A-07 | C-09 | CU-09 | ReporteOperativo, Indicador, Filtro | D-08 | F-08 | FE-09 |  |  |  |  | DP-01 |
+| RF-070 | A-07 | C-09 | CU-09 | ReporteOperativo, Indicador, Filtro | D-08 | F-08 | FE-09 |  |  |  |  | DP-01 |
+| RF-071 | A-01 | C-10 | CU-10 | Organizacion, Local, Parametro, Politica | D-01 | F-09 | FE-10 |  |  |  |  | DP-01 |
+| RF-072 | A-01 | C-10 | CU-10 | Organizacion, Local, Parametro, Politica | D-01 | F-09 | FE-10 |  |  |  |  | DP-01 |
+| RF-073 | A-01 | C-10 | CU-10 | Organizacion, Local, Parametro, Politica | D-01 | F-09 | FE-10 |  |  |  |  | DP-01 |
+| RF-074 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-075 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-076 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-077 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-078 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-079 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-080 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-081 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-082 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-083 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-084 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-085 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-086 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-087 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-088 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-089 | A-08 | C-11 | CU-11 | SolicitudProducto, CotizacionProducto, CompraProducto, EntregaProducto, ConformidadTecnica | D-09 | F-10 | FE-11 |  | E-05 | S-07 | AC-07 | DP-01 |
+| RF-090 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-091 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-092 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-093 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-094 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-095 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |
+| RF-096 | A-05 | C-06 | CU-06 | Tarea, BloqueTiempo, ServicioODS, Usuario | D-06 | F-06 | FE-06 |  | E-04 | S-04 | AC-04 | DP-01 |

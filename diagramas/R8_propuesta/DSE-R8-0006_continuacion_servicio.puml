@@ -1,0 +1,20 @@
+@startuml DSE-R8-0006
+' DSE-R8-0006 - Continuación de un servicio (DSE-0004 de R7 con numeración; semántica preservada).
+skinparam dpi 130
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign left
+skinparam ParticipantPadding 14
+title DSE-R8-0006 - Continuación de un servicio
+actor Tecnico
+participant Planificador
+
+Tecnico -> Planificador : 1. agregarContinuacion(detalleId, inicio, fin, motivo)
+Planificador -> Planificador : 1.1 validarCapacidad(tecnicoId, bloques)
+alt supera la capacidad simultánea o cae en descanso
+  Planificador --> Tecnico : rechazar y solicitar otro hueco
+else hueco válido
+  Planificador --> Tecnico : bloque enlazado; horas revisadas actualizadas
+end
+note right of Planificador : No cambia precio ni mueve reservas existentes.\nAuditar horas previas, nuevas y motivo.
+@enduml

@@ -1,0 +1,38 @@
+@startuml DCM-R77-0001
+' DCM-R77-0001 - Mapa de módulos: primera versión, beta y quitados (propuesta R7.7)
+skinparam dpi 120
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam packageStyle rectangle
+title DCM-R77-0001 - Módulos de la primera versión, beta y quitados
+package "Primera versión" {
+  [Órdenes de servicio] as M1
+  [Espacio de trabajo\ny automatizaciones] as M2
+  [Maestros (clientes, vehículos,\ngrupos, planes, series por sede)] as M3
+  [Inventario (productos, almacenes,\nmovimientos, kárdex)] as M4
+  [Ingresos (cotizaciones,\nnota de venta, por cobrar)] as M5
+  [Egresos (compras, por pagar)] as M6
+  [Bancos por sede] as M7
+  [Seguimiento (citas, bitácora,\nencuesta con enlace)] as M8
+  [Reportes y métricas\ncon filtro por sede] as M9
+  [Configuración y carga\nmasiva de ODS] as M10
+}
+package "Beta (al final del menú, ocultables)" {
+  [Cajas (apertura y cierre,\napagadas)] as B1
+  [Paquetes de servicios\ny productos] as B2
+  [Ingreso y egreso\nsin comprobante] as B3
+  [Flujo de caja y comparativo] as B4
+  [Integraciones y Gemini] as B5
+  [API de integración (contrato)] as B6
+}
+package "Quitados" {
+  [Reglas de precios] as Q1
+  [Auditoría interna] as Q2
+  [Movimientos de cuentas] as Q3
+}
+M10 --> M1 : crea ODS
+M1 --> M2 : crea tareas
+M5 --> M7 : cobra en
+M6 --> M7 : paga desde
+B6 ..> M10 : hoy, carga masiva
+@enduml

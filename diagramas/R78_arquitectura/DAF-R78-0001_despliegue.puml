@@ -1,0 +1,31 @@
+@startuml
+skinparam backgroundColor white
+skinparam shadowing false
+node "Equipo de desarrollo\nDocker Compose" {
+  node "web\nReact/Vite" as DW
+  node "api + worker\nNestJS" as DA
+  database "PostgreSQL" as DD
+}
+cloud "Repositorio GitHub" as GH
+cloud "GitHub Actions\nCI: lint + pruebas + build" as CI
+node "Entorno futuro validado" {
+  node "Frontend estático" as PW
+  node "API + worker\nmonolito modular" as PA
+  database "PostgreSQL gestionado" as PD
+  folder "Evidencias\nS3 compatible" as PF
+}
+actor "Técnico / cajera / administrador" as U
+U --> PW : HTTPS
+PW --> PA
+PA --> PD
+PA --> PF
+DW --> DA
+DA --> DD
+GH --> CI
+CI --> DW
+CI --> DA
+note bottom of PA
+No se fija proveedor cloud ni microservicios.
+Decisión final pendiente de ADR-001.
+end note
+@enduml

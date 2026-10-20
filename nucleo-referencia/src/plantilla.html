@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>R Motriz · Núcleo R8 (demo)</title>
+<style>
+/*__CSS__*/
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">R <span>Motriz</span><small>Núcleo de tesis · plan preventivo y posventa · R8</small></div>
+  <div class="sp"></div>
+  <label>Rol activo (simulado)
+    <select id="rol" aria-label="Rol activo simulado">
+      <option value="CAJERA">Cajera</option><option value="JEFE_TALLER">Jefe de taller</option><option value="EXPERTO">Experto mecánico</option><option value="TECNICO">Técnico</option><option value="ADMINISTRADOR">Administrador</option>
+    </select>
+  </label>
+  <button id="btn-export" title="Descarga el estado en memoria como JSON">Exportar estado</button>
+  <button id="btn-reset" title="Vuelve a los datos sintéticos iniciales">Reiniciar demo</button>
+</header>
+<div class="demo-banner" role="note"><b>DEMO · no es el sistema de producción.</b> Datos sintéticos (placas DEM-xxx), estado solo en memoria, sin autenticación ni backend. Los planes provienen de R7/AutoData y <b>no están validados técnicamente</b>. El rol activo se simula en el navegador: la autorización real debe ejecutarse en servidor. Importación: CSV de demostración; el adaptador XLSX sigue pendiente.</div>
+<nav class="tabs" id="nav" aria-label="Secciones"></nav>
+<main id="main" tabindex="-1"></main>
+<dialog id="dlg"><div id="dlg-body"></div><div class="row" style="justify-content:flex-end;margin-top:12px"><button id="dlg-close">Cerrar</button></div></dialog>
+<div id="toast" role="status" aria-live="polite"></div>
+<script id="motor">
+/*__MOTOR__*/
+</script>
+<script id="ui">
+/*__UI__*/
+</script>
+</body>
+</html>

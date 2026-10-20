@@ -1,0 +1,27 @@
+@startuml DSE-R8-0003
+' DSE-R8-0003 - Aprobar o rechazar un reajuste (nuevo). Barrera de validación humana antes de modificar la programación.
+skinparam dpi 130
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign left
+skinparam ParticipantPadding 14
+title DSE-R8-0003 - Aprobación de reajuste por jefe de taller o experto
+actor "Jefe de taller / Experto" as Jefe
+participant MotorPlanes
+participant ServicioAcceso
+participant RegistroAuditoria
+
+alt aprueba
+  Jefe -> MotorPlanes : 1. aprobarReajuste(reajusteId, usuarioId, motivo)
+  MotorPlanes -> ServicioAcceso : 1.1 puede(usuarioId, accion, sedeId)
+  ServicioAcceso --> MotorPlanes : booleano
+  MotorPlanes -> MotorPlanes : 1.2 reajustarFuturo(ordenId, evidenciaId, version)
+  MotorPlanes -> RegistroAuditoria : 1.3 registrar(actor, accion, motivo, antes, despues)
+  MotorPlanes --> Jefe : Reajuste APROBADO; solo cambia el futuro de la regla afectada
+else rechaza
+  Jefe -> MotorPlanes : 2. rechazarReajuste(reajusteId, usuarioId, motivo)
+  MotorPlanes -> ServicioAcceso : 2.1 puede(usuarioId, accion, sedeId)
+  MotorPlanes -> RegistroAuditoria : 2.2 registrar(actor, accion, motivo, antes, despues)
+  MotorPlanes --> Jefe : Reajuste RECHAZADO; plan sin cambios
+end
+@enduml

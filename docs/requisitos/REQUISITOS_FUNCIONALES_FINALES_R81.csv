@@ -1,0 +1,97 @@
+RF,Requisito
+RF-001,El sistema permite autenticar al usuario antes de acceder a información operativa.
+RF-002,"El sistema permite aplicar permisos por rol, local y responsabilidad asignada."
+RF-003,"El sistema permite administrar usuarios activos, roles y acceso a información sensible."
+RF-004,El sistema permite registrar y editar clientes conservando su historial operativo.
+RF-005,El sistema permite registrar y editar vehículos vinculados a su propietario e historial.
+RF-006,"El sistema permite buscar clientes y vehículos por placa, documento, VIN o nombre."
+RF-007,"El sistema permite conservar kilometraje, fuente, fecha y observación de cada lectura."
+RF-008,El sistema permite administrar proveedores mínimos para cotizar productos solicitados.
+RF-009,El sistema permite mantener catálogo de servicios con horas estándar y categoría técnica.
+RF-010,El sistema permite mantener catálogo de productos solicitables con referencia y unidad.
+RF-011,"El sistema permite crear una ODS con cliente, vehículo, local, hora de llegada y responsable."
+RF-012,El sistema permite editar cabecera y detalle de una ODS mientras la operación lo permita.
+RF-013,"El sistema permite registrar servicios, responsable técnico, duración estimada y observaciones."
+RF-014,El sistema permite distinguir ítems de servicio e ítems de producto en una misma ODS.
+RF-015,"El sistema permite registrar tipo de atención, garantía y evidencia de ingreso del vehículo."
+RF-016,"El sistema permite gestionar la ODS en recepción, en proceso, en entrega y cerrada."
+RF-017,El sistema permite cerrar una ODS dejando la información consultable y auditable.
+RF-018,El sistema permite solicitar y autorizar correcciones de una ODS cerrada sin borrar historial.
+RF-019,El sistema permite reconocer perfiles de importación Excel o CSV y sus encabezados versionados.
+RF-020,"El sistema permite previsualizar lote, filas válidas, advertencias y errores antes de aplicar."
+RF-021,"El sistema permite importar clientes, vehículos, servicios y ODS de forma atómica."
+RF-022,El sistema permite evitar duplicidad mediante identificadores externos e importación idempotente.
+RF-023,"El sistema permite conservar fila original, fuente, usuario y resultado de cada importación."
+RF-024,El sistema permite normalizar descripciones de servicio sin perder el texto de origen.
+RF-025,El sistema permite exportar resultado de importación y conciliación para revisión operativa.
+RF-026,El sistema permite crear plantillas de mantenimiento por grupo o compatibilidad de vehículo.
+RF-027,El sistema permite versionar planes y reglas sin reescribir servicios o proyecciones históricas.
+RF-028,"El sistema permite definir reglas por kilometraje, tiempo, perfil de uso y servicio."
+RF-029,El sistema permite evaluar si una regla es aplicable al vehículo antes de generar propuesta.
+RF-030,El sistema permite asignar explícitamente un plan vigente a cada vehículo cuando corresponda.
+RF-031,"El sistema permite mostrar línea de tiempo con historial real, proyecciones y evidencias."
+RF-032,El sistema permite reajustar únicamente proyecciones futuras después de un servicio confirmado.
+RF-033,El sistema permite conservar fuente y fecha de cada evento que modifica el plan.
+RF-034,El sistema permite generar recomendaciones con fundamento visible y decisión humana obligatoria.
+RF-035,"El sistema permite registrar aceptación, postergación o rechazo de una recomendación."
+RF-036,El sistema permite mantener tareas preventivas autónomas vinculadas a plan y vehículo.
+RF-037,El sistema permite crear tareas técnicas desde servicios o necesidades de la ODS.
+RF-038,"El sistema permite asignar tarea a técnico, jefe de taller o responsable definido."
+RF-039,"El sistema permite usar estados de tarea Pendiente, En proceso y Completada."
+RF-040,"El sistema permite registrar fecha, hora, duración estimada y duración real de la tarea."
+RF-041,El sistema permite reprogramar una tarea sin alterar la fecha de llegada de la ODS.
+RF-042,El sistema permite dividir una tarea iniciada y conservar vínculo entre sus bloques de tiempo.
+RF-043,El sistema permite continuar una tarea dividida en otro día u horario.
+RF-044,El sistema permite extender una tarea y registrar motivo opcional cuando supera lo planificado.
+RF-045,El sistema permite redistribuir duración de servicios en intervalos de 0.25 H-H.
+RF-046,El sistema permite recalcular horas de servicios cuando cambia el tiempo real de la ODS.
+RF-047,"El sistema permite permitir al técnico declarar avance, pausa o postergación con pocos pasos."
+RF-048,El sistema permite bloquear edición de jornada cuando el jefe de taller la consolida.
+RF-049,El sistema permite permitir a jefe de taller corregir jornada bloqueada con registro de cambio.
+RF-050,El sistema permite distinguir tiempo de servicio de huecos no asignados para reporte operativo.
+RF-051,El sistema permite mantener subtareas o bloques relacionados bajo la misma ODS.
+RF-052,"El sistema permite notificar al responsable ante asignación, cambio relevante o comentario mencionado."
+RF-053,"El sistema permite crear citas vinculadas a cliente, vehículo y responsable."
+RF-054,El sistema permite registrar llegada y convertir la atención en una ODS cuando corresponda.
+RF-055,El sistema permite visualizar agenda de técnicos por día y franjas horarias.
+RF-056,El sistema permite validar capacidad y advertir empalmes antes de programar trabajo.
+RF-057,"El sistema permite mover, redimensionar o dividir bloques de agenda en pasos de 15 minutos."
+RF-058,El sistema permite mostrar almuerzo y horario no disponible sin contabilizarlos como servicio.
+RF-059,"El sistema permite crear comentarios de bitácora vinculados a ODS, tarea o producto."
+RF-060,"El sistema permite registrar actor, fecha, cambio anterior, cambio nuevo y motivo cuando aplique."
+RF-061,El sistema permite adjuntar foto o archivo como evidencia de una acción autorizada.
+RF-062,"El sistema permite mencionar usuarios y enlazar una bitácora con tarea, ODS o producto."
+RF-063,"El sistema permite mostrar historial cronológico de ODS, vehículo y tareas relacionadas."
+RF-064,El sistema permite registrar automáticamente eventos relevantes sin impedir comentarios humanos.
+RF-065,"El sistema permite reportar horas estimadas, reales, extendidas y huecos por técnico."
+RF-066,"El sistema permite reportar ODS por estado, local, responsable y periodo."
+RF-067,El sistema permite reportar cumplimiento y pendientes de planes preventivos.
+RF-068,"El sistema permite filtrar reportes por local, fecha, técnico, vehículo y estado."
+RF-069,El sistema permite exportar resultados operativos para revisión administrativa.
+RF-070,El sistema permite diferenciar indicadores de operación de información comercial restringida.
+RF-071,"El sistema permite configurar organización, locales y alcance de usuarios por local."
+RF-072,"El sistema permite configurar horarios, almuerzo, intervalos y capacidad de agenda."
+RF-073,"El sistema permite configurar catálogo, tiempos estándar, tipos de atención y estados permitidos."
+RF-074,El sistema permite solicitar un producto desde una ODS y vincularlo al ítem requerido.
+RF-075,"El sistema permite registrar cotización editable con proveedor, alternativa, costo, venta y margen referencial."
+RF-076,El sistema permite cambiar la decisión de cliente a pendiente de aprobación solo al agregar ítems nuevos.
+RF-077,"El sistema permite aprobar o no aprobar la ODS a nivel de orden, conservando los ítems aprobados."
+RF-078,El sistema permite registrar compra de producto con comprobante y vínculo a ítem de ODS.
+RF-079,El sistema permite registrar entrega al técnico y mantener la tarea abierta hasta su conformidad.
+RF-080,El sistema permite completar la tarea logística solo cuando el técnico da conformidad o se resuelve la observación.
+RF-081,El sistema permite medir el tiempo desde aprobación de compra hasta entrega y conformidad técnica.
+RF-082,El sistema permite permitir al técnico editar la duración prevista de cada servicio asignado.
+RF-083,El sistema permite asociar retraso de repuesto o logística como causa reportable sin alterar el historial.
+RF-084,El sistema permite gestionar el rol Asistente administrativo de finanzas y sus permisos por módulo.
+RF-085,"El sistema permite configurar empresa, locales, dos logotipos y formatos de documento."
+RF-086,El sistema permite asignar series de comprobantes por local.
+RF-087,"El sistema permite emitir una cotización desde ODS con kilometraje, ítems, impuesto, descuento, observaciones y registro en bitácora."
+RF-088,El sistema permite emitir nota de venta interna con PDF o ticket y referencia a la ODS.
+RF-089,"El sistema permite registrar pagos, abonos y saldo pendiente de una nota de venta."
+RF-090,El sistema permite consultar cuentas por cobrar y por pagar pendientes.
+RF-091,"El sistema permite registrar movimientos, ingresos, egresos y traslados entre cuentas bancarias por local."
+RF-092,"El sistema permite registrar requerimientos, consumo y traslado de inventario entre locales."
+RF-093,"El sistema permite ejecutar automatizaciones de ODS, cita, kilometraje, seguimiento y tareas con historial de ejecución."
+RF-094,El sistema permite registrar consulta de kilometraje y recalcular proyecciones futuras.
+RF-095,El sistema permite enviar encuesta con enlace y registrar respuestas para NPS y satisfacción.
+RF-096,"El sistema permite consultar métricas de venta de servicios, satisfacción y NPS con filtro por local."

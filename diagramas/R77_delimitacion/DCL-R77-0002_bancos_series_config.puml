@@ -1,0 +1,114 @@
+@startuml DCL-R77-0002
+' DCL-R77-0002 - Bancos por sede, series por sede y configuración (propuesta R7.7, NO validada por el profesor)
+skinparam dpi 120
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam classAttributeIconSize 0
+skinparam linetype polyline
+skinparam nodesep 35
+skinparam ranksep 55
+hide empty members
+title DCL-R77-0002 - Bancos y series por sede, configuración y reportes
+
+enum Rol {
+  ADMINISTRADOR
+  JEFE_TALLER
+  CAJERA
+  TECNICO
+  LOGISTICO_FINANZAS
+  EXTERNO
+}
+enum TipoCuenta {
+  BANCO
+  EFECTIVO
+}
+enum TipoMovimiento {
+  INGRESO
+  EGRESO
+  TRASLADO_ENVIADO
+  TRASLADO_RECIBIDO
+}
+class Sede {
+  -codigo : String
+  -nombre : String
+}
+class Usuario {
+  -nombre : String
+  -rol : Rol
+  -sede : Sede
+}
+class CuentaBancaria {
+  -nombre : String
+  -tipo : TipoCuenta
+  -saldo : Decimal
+  +visiblePara(usuario)
+  +sumar(monto)
+  +restar(monto)
+}
+class MovimientoCuenta {
+  -tipo : TipoMovimiento
+  -monto : Decimal
+  -concepto : String
+  -fecha : Date
+  +registrar(cuenta, monto, concepto)
+}
+class ServicioMovimiento {
+  +registrarIngreso(cuenta, cliente, metodo, monto, concepto)
+  +registrarEgreso(cuenta, proveedor, monto, concepto)
+}
+class ServicioTraslado {
+  +trasladar(origen, destino, monto, concepto)
+}
+class Proveedor {
+  -documento : String
+  -nombre : String
+}
+class Cliente {
+  -documento : String
+  -nombre : String
+}
+class SerieComprobante {
+  -serie : String
+  -tipoComprobante : String
+  -numeroActual : int
+  +seleccionarPorSede(sede)
+  +siguienteNumero()
+}
+class NotaVenta {
+  -codigo : String
+  -total : Decimal
+  +emitir(orden, cuenta)
+}
+class ConfiguracionSistema {
+  -mostrarBeta : boolean
+  -usarCajas : boolean
+  +alternarBeta()
+  +alternarCajas()
+}
+class ReporteOperativo {
+  -sede : Sede
+  +filtrarPorSede(sede)
+}
+class Repositorio {
+  +guardar(entidad)
+}
+Usuario "*" --> "1" Sede
+Usuario --> Rol
+CuentaBancaria "*" --> "1" Sede
+CuentaBancaria --> TipoCuenta
+CuentaBancaria "1" o-- "0..*" MovimientoCuenta
+MovimientoCuenta --> TipoMovimiento
+ServicioMovimiento ..> CuentaBancaria
+ServicioMovimiento ..> MovimientoCuenta : crea
+ServicioMovimiento ..> Proveedor : egreso a
+ServicioMovimiento ..> Cliente : ingreso de
+ServicioTraslado ..> CuentaBancaria
+ServicioTraslado ..> MovimientoCuenta : crea dos
+SerieComprobante "*" --> "1" Sede
+NotaVenta "*" --> "1" SerieComprobante
+NotaVenta ..> CuentaBancaria : cobra en
+ReporteOperativo ..> Sede
+ServicioMovimiento ..> Repositorio
+ServicioTraslado ..> Repositorio
+NotaVenta ..> Repositorio
+@enduml

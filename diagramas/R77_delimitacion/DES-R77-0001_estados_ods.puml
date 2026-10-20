@@ -1,0 +1,14 @@
+@startuml DES-R77-0001
+' DES-R77-0001 - Estados de la ODS en R7.7 (propuesta; va después de los diagramas de clases)
+skinparam dpi 130
+skinparam shadowing false
+skinparam defaultFontName Arial
+title DES-R77-0001 - Estados de la ODS (sin «Archivada»: se cierra)
+[*] --> Recepcion : crearEvento()
+Recepcion --> EnProceso : avanzarEstado()
+EnProceso --> Entrega : avanzarEstado()
+Entrega --> Cerrada : cerrar()
+Cerrada --> Cerrada : solicitarEdicion()
+Cerrada --> Cerrada : aprobarEdicion()
+note right of Cerrada : Editar una ODS cerrada exige solicitud y aprobación del jefe de taller.\nUna ODS cargada ya cerrada no crea tareas.
+@enduml

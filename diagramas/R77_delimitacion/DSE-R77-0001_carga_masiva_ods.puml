@@ -1,0 +1,34 @@
+@startuml DSE-R77-0001
+' DSE-R77-0001 - Carga diaria de órdenes de servicio (propuesta R7.7)
+skinparam dpi 130
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign left
+skinparam ParticipantPadding 14
+title DSE-R77-0001 - Carga masiva diaria de ODS
+actor Superusuario
+participant CargaMasiva
+participant LectorArchivo
+participant PlanCarga
+participant OrdenServicio
+participant MotorReglas
+participant Repositorio
+
+Superusuario -> CargaMasiva : 1. cargar(archivo, tipo, modo)
+CargaMasiva -> LectorArchivo : 1.1 leer(archivo)
+LectorArchivo --> CargaMasiva : filas
+CargaMasiva -> PlanCarga : 1.2 planificar(filas, modo)
+PlanCarga --> CargaMasiva : vista previa (nuevos, a actualizar, sin cambios, con error)
+CargaMasiva --> Superusuario : vista previa; todavía no se cambió nada
+Superusuario -> CargaMasiva : 2. aplicar()
+CargaMasiva -> Repositorio : 2.1 iniciar()
+loop por cada ODS nueva
+  CargaMasiva -> PlanCarga : 2.2 ejecutar()
+  PlanCarga -> Repositorio : 2.2.1 guardar(orden)
+  PlanCarga -> OrdenServicio : 2.2.2 crearEvento()
+end
+CargaMasiva -> MotorReglas : 2.3 procesarEventos()
+CargaMasiva -> Repositorio : 2.4 confirmar()
+CargaMasiva --> Superusuario : resumen (nuevos, actualizados, errores por fila)
+note over CargaMasiva,PlanCarga : Solo el superusuario aplica. Volver a cargar el mismo archivo\nen «solo agregar» no duplica (llave: codigo_ods). Las filas con error\nse informan y no detienen al resto. Las ODS cerradas no crean tareas.
+@enduml

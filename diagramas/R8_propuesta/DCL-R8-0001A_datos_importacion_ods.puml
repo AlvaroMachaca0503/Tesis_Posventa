@@ -1,0 +1,220 @@
+@startuml DCL-R8-0001A
+' DCL-R8-0001A - Vista A del modelo de clases del núcleo (propuesta R8, NO validada por el profesor)
+' Consolida DCL-0001, DCL-0002 y DCL-0003 de R7. Conserva intactos Importador, ValidadorLote,
+' ResolvedorIdentidad, AplicadorLote, Lote, FilaOriginal, IdentidadExterna (DCL-0003) y Repositorio/RegistroAuditoria (DCL-0002).
+skinparam dpi 120
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam classAttributeIconSize 0
+skinparam linetype polyline
+skinparam nodesep 35
+skinparam ranksep 55
+hide empty members
+title DCL-R8-0001A - Datos base, importación y ODS
+
+enum Rol {
+  ADMINISTRADOR
+  CAJERA
+  TECNICO
+  JEFE_TALLER
+  EXPERTO
+}
+enum EstadoODS {
+  RECEPCION
+  EN_PROCESO
+  ENTREGA
+  ARCHIVADA
+}
+enum DecisionCliente {
+  PENDIENTE
+  APROBADA
+  NO_APROBADA
+}
+enum TipoLinea {
+  SERVICIO
+  PRODUCTO
+}
+enum AccionServicio {
+  SUSTITUCION
+  INSPECCION
+  SERVICIO_GENERAL
+  DESCONOCIDA
+}
+enum PerfilUso {
+  NORMAL
+  SEVERO
+}
+
+class Usuario {
+  +id: UUID
+  +nombre: texto
+  +rol: Rol
+  +sedeId: UUID
+}
+class Cliente {
+  +id: UUID
+  +nombre: texto opcional
+  +telefono: texto opcional
+  +origenSistema: texto
+  +idExterno: texto
+}
+class Vehiculo {
+  +id: UUID
+  +placa: texto opcional
+  +vin: texto opcional
+  +marca: texto opcional
+  +modelo: texto opcional
+  +anio: entero opcional
+  +codigoMotor: texto opcional
+  +perfilUso: PerfilUso opcional
+  +tipoAceite: texto opcional
+  +kmDeclarado: entero opcional
+  +origenSistema: texto
+  +idExterno: texto
+  +camposFaltantes(): lista de texto
+}
+class OrdenServicio {
+  +id: UUID
+  +codigo: texto
+  +llegada: fechaHora
+  +kmIngreso: entero opcional
+  +estado: EstadoODS
+  +decisionCliente: DecisionCliente
+  +origenSistema: texto
+  +idExterno: texto
+  +lineasActivas(): lista de LineaODS
+}
+class LineaODS {
+  +id: UUID
+  +tipo: TipoLinea
+  +descripcion: texto
+  +cantidad: decimal
+  +activa: booleano
+  +accion: AccionServicio
+  +accionInferida: booleano
+  +horasRevisadas: decimal opcional
+}
+class ServicioCatalogo {
+  +id: UUID
+  +nombre: texto
+  +accion: AccionServicio
+}
+class EquivalenciaServicio {
+  +descripcionOrigen: texto
+  +accion: AccionServicio
+  +metodo: texto
+  +confianza: decimal
+}
+class EventoAuditoria {
+  +actorId: UUID
+  +fechaHora: fechaHora
+  +accion: texto
+  +antes: texto
+  +despues: texto
+  +motivo: texto opcional
+}
+
+class Importador {
+  +cargar(archivo, perfil, modo): Lote
+  +reconocerPerfil(encabezados): PerfilImportacion
+}
+class ValidadorLote {
+  +validarTodo(archivo, perfil): ResultadoValidacion
+}
+class ResolvedorIdentidad {
+  +resolver(origen, idExterno, tipo): IdentidadExterna
+}
+class AplicadorLote {
+  +aplicarAtomico(lote, modo): ResumenLote
+}
+class NormalizadorServicios {
+  +resolverEquivalencia(descripcion, accion): EquivalenciaServicio
+}
+class PerfilImportacion {
+  +id: texto
+  +columnasObligatorias: lista de texto
+}
+class Lote {
+  +hash: texto
+  +estado: texto
+  +modo: texto
+}
+class FilaOriginal {
+  +numero: entero
+  +contenido: texto
+  +errores: lista de texto
+}
+class IdentidadExterna {
+  +origen: texto
+  +tipo: texto
+  +idExterno: texto
+  +idInterno: UUID
+}
+
+class ServicioODS {
+  +agregarLinea(ordenId, linea, usuarioId)
+  +retirarLinea(ordenId, lineaId, motivo)
+  +registrarDecision(ordenId, decision, usuarioId)
+  +avanzarEstado(ordenId, destino, usuarioId)
+  +archivar(ordenId, politicaSalida, claveEvento)
+  +corregirArchivada(ordenId, cambios, motivo)
+  +reabrir(ordenId, motivo)
+  +crearODS(vehiculoId, datos, usuarioId)
+  +crearDesdeCita(citaId, clave)
+}
+class Repositorio {
+  +iniciar()
+  +guardar(datos)
+  +confirmar()
+  +revertir()
+}
+class RegistroAuditoria {
+  +registrar(actor, accion, motivo, antes, despues)
+}
+class ServicioAcceso {
+  +puede(usuarioId, accion, sedeId): booleano
+}
+class ServicioPosventa <<ver vista C>>
+class MotorPlanes <<ver vista B>>
+
+Usuario --> Rol
+Cliente "1" -- "0..*" Vehiculo : titular registrado
+Vehiculo "1" -- "0..*" OrdenServicio
+OrdenServicio "1" *-- "0..*" LineaODS
+OrdenServicio "1" -- "0..*" EventoAuditoria
+OrdenServicio --> EstadoODS
+OrdenServicio --> DecisionCliente
+LineaODS --> TipoLinea
+LineaODS --> AccionServicio
+Vehiculo --> PerfilUso
+LineaODS "0..*" --> "0..1" ServicioCatalogo
+EquivalenciaServicio "0..*" --> "1" ServicioCatalogo
+
+Importador --> ValidadorLote
+Importador --> ResolvedorIdentidad
+Importador --> AplicadorLote
+Importador ..> PerfilImportacion
+AplicadorLote --> NormalizadorServicios
+AplicadorLote --> Repositorio
+NormalizadorServicios ..> EquivalenciaServicio
+Lote "1" *-- "1..*" FilaOriginal
+ResolvedorIdentidad --> IdentidadExterna
+
+ServicioODS --> Repositorio
+ServicioODS --> RegistroAuditoria
+ServicioODS --> MotorPlanes
+ServicioODS --> ServicioPosventa
+ServicioODS ..> ServicioAcceso
+ServicioODS ..> OrdenServicio
+RegistroAuditoria ..> EventoAuditoria
+
+note bottom of OrdenServicio
+  Solo agregarLinea de un ítem NUEVO revierte
+  APROBADA -> PENDIENTE (R7 #2). Retirar conserva historia (R7 #3).
+  ARCHIVADA no equivale a facturada. Importación: reimportar no duplica.
+end note
+note bottom of ServicioODS
+  Renombres propuestos frente a DCL-0002 (ver DIAGNOSTICO_UML.md):
+  cerrar -> archivar, corregirCerrada -> corregirArchivada (nomenclatura R7 #5).
+end note
+@enduml

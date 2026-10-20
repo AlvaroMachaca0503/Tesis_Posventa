@@ -1,0 +1,121 @@
+@startuml DCL-R77-0001
+' DCL-R77-0001 - Carga diaria de ODS y encuesta con enlace (propuesta R7.7, NO validada por el profesor)
+' Derivado de la delimitación del 19/10/2026. Reutiliza los nombres de DCL-R8-0001A (Importador -> CargaMasiva).
+skinparam dpi 120
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam classAttributeIconSize 0
+skinparam linetype polyline
+skinparam nodesep 35
+skinparam ranksep 55
+hide empty members
+title DCL-R77-0001 - Carga diaria de ODS y encuesta con enlace
+
+enum EstadoODS {
+  RECEPCION
+  EN_PROCESO
+  ENTREGA
+  CERRADA
+}
+enum ModoCarga {
+  SOLO_AGREGAR
+  AGREGAR_Y_ACTUALIZAR
+  AGREGAR_Y_COMPLETAR_VACIOS
+}
+enum CanalRespuesta {
+  ENLACE
+  WHATSAPP
+  LLAMADA
+  PRESENCIAL
+}
+class CargaMasiva {
+  -tipo : String
+  -modo : ModoCarga
+  -resultado : String
+  +cargar(archivo, tipo, modo)
+  +vistaPrevia()
+  +aplicar()
+}
+class LectorArchivo {
+  +leer(archivo)
+}
+class PlanCarga {
+  -nuevos : int
+  -actualizar : int
+  -sinCambios : int
+  -conError : int
+  +planificar(filas, modo)
+  +ejecutar()
+}
+class OrdenServicio {
+  -idExterno : String
+  -fecha : Date
+  -estado : EstadoODS
+  -sede : String
+  +crearEvento()
+  +avanzarEstado()
+  +cerrar()
+  +solicitarEdicion()
+  +aprobarEdicion()
+}
+class ItemOrden {
+  -tipo : String
+  -codigo : String
+  -cantidad : Decimal
+  -precioUnitario : Decimal
+  -costo : Decimal
+  -tecnicoServicio : String
+}
+class Vehiculo {
+  -placa : String
+  -kilometraje : int
+}
+class Cliente {
+  -documento : String
+  -nombre : String
+}
+class Tarea {
+  -titulo : String
+  -estado : String
+  +completar()
+}
+class MotorReglas {
+  +procesarEventos()
+}
+class Encuesta {
+  -token : String
+  -enlace : String
+  +generarEnlace(orden)
+  +mostrar(token)
+  +registrarRespuesta(token, respuestas)
+}
+class RespuestaEncuesta {
+  -canal : CanalRespuesta
+  -recomendacion : int
+  -comentario : String
+  +calcularNps()
+}
+class Repositorio {
+  +iniciar()
+  +guardar(entidad)
+  +buscar(token)
+  +confirmar()
+  +revertir()
+}
+CargaMasiva ..> LectorArchivo : usa
+CargaMasiva *-- PlanCarga
+PlanCarga ..> OrdenServicio : crea
+PlanCarga ..> Repositorio : guarda en
+OrdenServicio "1" *-- "1..*" ItemOrden
+OrdenServicio "*" --> "1" Vehiculo
+Vehiculo "*" --> "1" Cliente
+OrdenServicio "1" o-- "0..*" Tarea
+OrdenServicio --> EstadoODS
+CargaMasiva --> ModoCarga
+CargaMasiva ..> MotorReglas : activa
+MotorReglas ..> Tarea : crea
+OrdenServicio "1" -- "0..*" Encuesta
+Encuesta "1" *-- "0..*" RespuestaEncuesta
+RespuestaEncuesta --> CanalRespuesta
+Encuesta ..> Repositorio
+@enduml

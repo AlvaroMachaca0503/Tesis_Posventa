@@ -1,0 +1,111 @@
+@startuml DCL-R8-0001C
+' DCL-R8-0001C - Vista C: posventa, citas y agenda (propuesta R8, NO validada por el profesor)
+' Conserva ServicioCitas, Planificador y ServicioAvisos (DCL-0007) y las entidades de DCL-0005.
+' Renombre: la entidad ServicioCita (DCL-0005) pasa a LineaCita para no chocar con el servicio ServicioCitas (DCL-0007).
+skinparam dpi 120
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam classAttributeIconSize 0
+skinparam linetype polyline
+skinparam nodesep 35
+skinparam ranksep 55
+hide empty members
+title DCL-R8-0001C - Posventa, citas y agenda
+
+enum EstadoSeguimiento {
+  PENDIENTE
+  INTENTO_REGISTRADO
+  CONTACTO_DECLARADO
+  COMPLETADO_CON_CITA
+  COMPLETADO_SIN_CITA
+  COMPLETADO_CON_SUBTAREA
+}
+enum EstadoCita {
+  RESERVADA
+  RECONFIRMADA
+  LLEGADA_CONVERTIDA
+  REPROGRAMADA
+  CANCELADA
+}
+
+class ServicioPosventa {
+  +asegurarSeguimiento(ordenId, claveEvento): Seguimiento
+  +registrarIntento(seguimientoId, canal): IntentoContacto
+  +registrarResultado(seguimientoId, resultado)
+  +generarEnlaceWhatsApp(seguimientoId): texto
+}
+class ServicioCitas {
+  +programarCita(seguimientoId, lineas, bloques): Cita
+  +convertirLlegada(citaId, clave)
+  +reprogramar(citaId, bloques, motivo)
+}
+class Planificador {
+  +validarCapacidad(tecnicoId, bloques)
+  +enlazarBloques(citaId, ordenId)
+  +agregarContinuacion(detalleId, inicio, fin, motivo)
+}
+class ServicioAvisos {
+  +crearReconfirmacion(citaId)
+}
+class Seguimiento {
+  +id: UUID
+  +estado: EstadoSeguimiento
+  +responsableId: UUID
+  +vence: fecha
+  +origen: texto
+}
+class IntentoContacto {
+  +canal: texto
+  +resultado: texto
+  +fechaHora: fechaHora
+}
+class Cita {
+  +id: UUID
+  +estado: EstadoCita
+  +responsableId: UUID
+  +inicio: fechaHora
+}
+class LineaCita {
+  +duracionHH: multiplo de 0.25
+  +tecnicoId: UUID
+  +asignacionExplicita: booleano
+}
+class BloqueTrabajo {
+  +inicio: fechaHora
+  +fin: fechaHora
+  +horasReales: decimal
+  +continuacionDeId: UUID opcional
+}
+class Horario {
+  +jornada: texto
+  +descanso: texto
+  +excepciones: texto
+}
+class ServicioODS <<ver vista A>>
+class LineaODS <<ver vista A>>
+
+ServicioPosventa --> Seguimiento
+Seguimiento "1" -- "0..*" IntentoContacto
+Seguimiento "0..1" --> "0..*" Cita
+Seguimiento --> EstadoSeguimiento
+Cita --> EstadoCita
+Cita "1" *-- "1..*" LineaCita
+LineaCita "0..1" -- "0..1" LineaODS : conversión
+LineaCita "0..1" -- "0..*" BloqueTrabajo
+LineaODS "0..1" -- "0..*" BloqueTrabajo
+BloqueTrabajo --> Horario : valida disponibilidad
+ServicioCitas --> Planificador
+ServicioCitas --> ServicioODS
+ServicioCitas --> ServicioAvisos
+
+note bottom of BloqueTrabajo
+  Agenda en múltiplos de 15 min; H-H en múltiplos de 0.25 (R7 #17).
+  La llegada de la ODS es independiente de los bloques.
+  "Máximo dos simultáneos por técnico" = regla PENDIENTE de confirmar (R5 vs R7).
+  Almuerzo: 13:00-14:00 según R5; el SEED de R7 trae 14:00-15:00 (DIF-012).
+end note
+note bottom of Seguimiento
+  Abrir un enlace de WhatsApp NO acredita envío ni respuesta:
+  solo registrarIntento + registrarResultado cambian el estado (DES-0002).
+end note
+@enduml

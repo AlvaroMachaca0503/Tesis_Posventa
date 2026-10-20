@@ -1,0 +1,170 @@
+@startuml DCL-R8-0001B
+' DCL-R8-0001B - Vista B: plan preventivo, línea temporal y reajuste (propuesta R8, NO validada por el profesor)
+' Amplía DCL-0004 (entidades sin operaciones) con los servicios y operaciones que exigen RF-04, 13, 14, 15, 16, 17.
+skinparam dpi 120
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam classAttributeIconSize 0
+skinparam linetype polyline
+skinparam nodesep 35
+skinparam ranksep 55
+hide empty members
+title DCL-R8-0001B - Plan preventivo, línea temporal y reajuste
+
+enum PerfilUso {
+  NORMAL
+  SEVERO
+}
+enum TipoOperacion {
+  PERIODICA
+  AUTONOMA
+}
+enum EstadoProyeccion {
+  EJECUTADO
+  PROGRAMADO
+  VENCIDO
+  CONDICIONAL
+  SIN_REGISTRO
+  SIN_INTERVALO
+}
+enum EstadoReajuste {
+  PENDIENTE
+  APROBADO
+  RECHAZADO
+  ABSTENIDO
+}
+
+class ServicioVehiculos {
+  +buscarPorPlaca(placa): Vehiculo
+  +consultarHistorial(vehiculoId): lista de OrdenServicio
+}
+class ServicioPlanes {
+  +evaluarAplicabilidad(vehiculoId): lista de ResultadoAplicabilidad
+  +asignarPlan(vehiculoId, versionId, usuarioId): Asignacion
+  +publicarVersion(planId, cambios, motivo): VersionPlan
+}
+class ServicioLineaTemporal {
+  +construir(vehiculoId, kmActual, fechaCorte): LineaTemporal
+  +compararConBase(asignacionId, kmActual, fechaCorte): lista de Proyeccion
+}
+class MotorPlanes {
+  +proponerReajuste(ordenId, evidenciaId, version): lista de Reajuste
+  +aprobarReajuste(reajusteId, usuarioId, motivo)
+  +rechazarReajuste(reajusteId, usuarioId, motivo)
+  -reajustarFuturo(ordenId, evidenciaId, version)
+}
+class Plan {
+  +id: UUID
+  +nombre: texto
+}
+class VersionPlan {
+  +numero: entero
+  +fuente: texto
+  +estado: texto
+  +congelar()
+}
+class ReglaIntervalo {
+  +accion: texto
+  +tipo: TipoOperacion
+  +kmInicial: entero opcional
+  +intervaloKmNormal: entero opcional
+  +intervaloMesesNormal: entero opcional
+  +intervaloKmSevero: entero opcional
+  +intervaloMesesSevero: entero opcional
+  +intervaloPara(uso): Intervalo
+  +calcularSiguiente(ancla, uso): Proyeccion
+}
+class Aplicabilidad {
+  +marca: texto
+  +modelo: texto
+  +motor: texto
+  +anioDesde: entero opcional
+  +anioHasta: entero opcional
+  +coincide(vehiculo): ResultadoAplicabilidad
+}
+class Asignacion {
+  +vehiculoId: UUID
+  +fechaBase: fecha
+  +kmBase: entero
+  +asignadoPor: UUID
+  +congelarBase(proyecciones)
+}
+class Proyeccion {
+  +reglaId: UUID
+  +km: entero opcional
+  +fecha: fecha opcional
+  +estado: EstadoProyeccion
+  +revisionIndex: entero opcional
+}
+class Evidencia {
+  +ordenId: UUID
+  +lineaId: UUID
+  +km: entero
+  +fecha: fecha
+}
+class Reajuste {
+  +id: UUID
+  +estado: EstadoReajuste
+  +antesKm: entero opcional
+  +antesFecha: fecha opcional
+  +despuesKm: entero opcional
+  +despuesFecha: fecha opcional
+  +motivo: texto
+  +claveEvento: texto
+}
+class LineaTemporal {
+  +proyectados: lista de Proyeccion
+  +ejecutados: lista de OrdenServicio
+  +kmActual: entero
+  +fechaCorte: fecha
+}
+class Vehiculo <<ver vista A>>
+class OrdenServicio <<ver vista A>>
+class LineaODS <<ver vista A>>
+class NormalizadorServicios <<ver vista A>>
+class ServicioAcceso <<ver vista A>>
+class RegistroAuditoria <<ver vista A>>
+
+ServicioVehiculos ..> Vehiculo
+ServicioPlanes ..> Aplicabilidad
+ServicioPlanes --> Asignacion
+ServicioLineaTemporal --> LineaTemporal
+ServicioLineaTemporal ..> ReglaIntervalo
+MotorPlanes --> Reajuste
+MotorPlanes ..> ReglaIntervalo
+MotorPlanes ..> NormalizadorServicios
+MotorPlanes ..> ServicioAcceso
+MotorPlanes --> RegistroAuditoria
+ServicioPlanes --> ServicioLineaTemporal
+Plan "1" *-- "1..*" VersionPlan
+VersionPlan "1" *-- "1..*" ReglaIntervalo
+VersionPlan "1" -- "0..*" Aplicabilidad
+VersionPlan "1" -- "0..*" Asignacion
+Vehiculo "1" -- "0..*" Asignacion
+Asignacion "1" -- "0..*" Proyeccion
+ReglaIntervalo "1" -- "0..*" Proyeccion
+ReglaIntervalo --> TipoOperacion
+Proyeccion --> EstadoProyeccion
+Reajuste --> EstadoReajuste
+Evidencia "0..*" --> "1" ReglaIntervalo
+Evidencia "0..*" --> "1" LineaODS
+Reajuste "0..*" --> "1" Evidencia
+Reajuste "0..*" --> "1" ReglaIntervalo
+LineaTemporal "1" o-- "0..*" Proyeccion
+LineaTemporal "1" o-- "0..*" OrdenServicio
+
+note bottom of Proyeccion
+  El historial ejecutado NO se reescribe. El plan base
+  (Asignacion.congelarBase) es inmutable y comparable.
+  Sin intervalo documentado se marca SIN_INTERVALO (no se interpola).
+  Una operación AUTONOMA no se reescala con revisionIndex.
+  Solo la primera proyección pendiente es VENCIDO; los ciclos
+  siguientes son CONDICIONAL (presuponen atención).
+end note
+note bottom of MotorPlanes
+  proponerReajuste NO modifica la programación definitiva.
+  Requiere aprobarReajuste de JEFE_TALLER o EXPERTO.
+  Sin evidencia válida (sin km/fecha o equivalencia dudosa) se
+  produce EstadoReajuste.ABSTENIDO. Idempotente por claveEvento.
+end note
+@enduml
